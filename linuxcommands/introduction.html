@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux Commands Guidebook | Riya halbhavi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/styles.css">
+
+<style>
+/* ================= ORIGINAL STYLES ================= */
+html {
+    scroll-behavior: smooth;
+    cursor: none;
+}
+body {
+    margin: 0;
+    background: #000;
+    color: white;
+    font-family: 'Titillium Web', sans-serif;
+    overflow-x: hidden;
+}
+
+/* ================= TOPBAR ================= */
+.topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 9999;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    box-sizing: border-box;
+}
+.menu a {
+    color:white;
+    text-decoration:none;
+    margin:0 6px;
+}
+.menu a:hover { color:#fc7c7c; }
+
+/* ================= PAGE TITLE ================= */
+.page-title {
+    margin-top: 65px;
+    text-align:center;
+    font-family:'Silkscreen', monospace;
+    font-size:44px;
+    letter-spacing:2px;
+}
+
+/* ================= LAYOUT ================= */
+.layout {
+    display:flex;
+    padding:40px 60px;
+    gap:40px;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    position: fixed;
+    top: 260px;
+    left: 60px;
+    width: 280px;
+    border-right:1px solid #333;
+    padding-right: 20px;
+}
+.sidebar h3 {
+    color:#fc7c7c;
+    font-family:'Silkscreen', monospace;
+    font-size: 35px;
+}
+.sidebar ul {
+    font-size: 22px;
+    list-style:none;
+    padding:0;
+}
+.sidebar li {
+    margin-bottom:12px;
+}
+.sidebar a:hover {
+    color:#fc7c7c;
+}
+.sidebar a {
+    color:#aaa;
+    text-decoration:none;
+}
+.sidebar a.active {
+    color:#fc7c7c;
+    font-weight: bold;
+}
+
+/* ================= CONTENT ================= */
+.content {
+    margin-left: 325px;
+    flex:1;
+}
+.section {
+    margin-bottom:80px;
+    scroll-margin-top: 140px;
+}
+.section h2 {
+    color:#fc7c7c;
+    font-family:'Titillium Web', sans-serif;
+    font-size: 45px;
+}
+.section p, .section ul {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+.section img {
+    max-width: 100%;
+    margin: 20px 0;
+    border-radius: 6px;
+}
+
+/* ================= CURSOR TRAIL ================= */
+#cursor-trail-container2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+}
+#static-cursor {
+    position: fixed;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red);
+    pointer-events: none;
+    z-index: 10001;
+    top: -100px;
+    left: -100px;
+    transform: translate(-50%, -50%);
+}
+.trianglewhite5 {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red);
+    animation: pulse5 5s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+@keyframes pulse5 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* ================= PAGE DROPDOWN ================= */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.sidebar-header .arrow {
+    color: white;
+    font-size: 18px;
+    margin-left: 6px;
+    transition: transform 0.2s ease;
+}
+.page-dropdown {
+    display: none;
+    background: white;
+    margin: 10px 0 18px;
+    border-radius: 4px;
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+.page-dropdown a {
+    display: block;
+    padding: 10px 14px;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 22px;
+    color: black;
+    text-decoration: none;
+}
+.page-dropdown a:hover {
+    background: #e5e5e5;
+    color: black;
+}
+.page-dropdown a.active-page {
+    background: #e5e5e5;
+    font-weight: bold;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 900px) {
+    .sidebar {
+        position: static;
+        width:100%;
+        border-right:none;
+        padding-right:0;
+    }
+    .content {
+        margin-left:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="static-cursor"></div>
+<div id="cursor-trail-container2"></div>
+
+<div class="topbar">
+    <a href="../index.html">
+        <img src="../styles/banner.png" height="80">
+    </a>
+    <div class="menu">
+        <a href="../index.html#about">About</a><span style="color: red">|</span>
+        <a href="../index.html#projects">Projects</a><span style="color: red">|</span>
+        <a href="../index.html#blog"><span style="color: #fc7c7c">Blog</span></a>
+    </div>
+</div>
+
+<h1 class="page-title">Linux Commands Guidebook</h1>
+
+<div class="layout">
+
+<aside class="sidebar">
+    <div class="sidebar-header" onclick="togglePages()">
+        <h3>INTRODUCTION</h3>
+        <span class="arrow">▼</span>
+    </div>
+
+    <div class="page-dropdown" id="pageDropdown">
+        <a href="introduction.html" class="active-page">INTRODUCTION</a>
+        <a href="gnu-coreutils.html">1. GNU Coreutils</a>
+        <a href="text-processing.html">2. Text Processing</a>
+        <a href="processes-and-system.html">3. Processes & System</a>
+        <a href="disk-hardware.html">4. Disk & Hardware</a>
+        <a href="networking.html">5. Networking</a>
+        <a href="archives.html">6. Archives</a>
+        <a href="shell-and-env.html">7. Shell & Env</a>
+        <a href="users-and-sessions.html">8. Users & Sessions</a>
+    </div>
+
+    <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#guidebook">About the Guidebook</a></li>
+        <li><a href="#linux">Why Linux?</a></li>
+        <li><a href="#topics">All Page Topics</a></li>
+    </ul>
+</aside>
+
+<main class="content">
+<section id="overview" class="section">
+    <h2>INTRODUCTION</h2>
+    <img src="../img/linuxintro.png" alt="Linux Introduction">
+    <p>Welcome to the Linux Commands Guidebook! This guidebook helps users of all levels understand and use Linux commands efficiently. It provides structured guidance from basic operations to advanced system tasks.</p>
+</section>
+
+<section id="guidebook" class="section">
+    <h2>About the Guidebook</h2>
+    <p>This guidebook is suitable for beginners, students, developers, and system administrators who want to improve their command-line skills. You can use it to:</p>
+    <ul>
+        <li>Learn Linux commands in a structured manner.</li>
+        <li>Understand the purpose and usage of essential commands.</li>
+        <li>Refer back to for quick examples and syntax.</li>
+        <li>Build confidence in performing Linux tasks efficiently.</li>
+    </ul>
+</section>
+
+<section id="linux" class="section">
+    <h2>Why Linux?</h2>
+    <p>Linux is a powerful operating system widely used for servers, programming, networking, and embedded systems. Learning Linux commands allows you to:</p>
+    <ul>
+        <li>Navigate and manage files efficiently.</li>
+        <li>Automate repetitive tasks through scripts.</li>
+        <li>Understand and control system processes.</li>
+        <li>Develop and maintain servers and applications effectively.</li>
+    </ul>
+</section>
+
+<section id="topics" class="section">
+    <h2>All Page Topics</h2>
+    <ul>
+        <li><strong>GNU Coreutils:</strong> Basic file, directory, and permission commands.</li>
+        <li><strong>Text Processing:</strong> Commands to manipulate text files and data streams.</li>
+        <li><strong>Processes & System:</strong> Monitoring and managing system processes.</li>
+        <li><strong>Disk & Hardware:</strong> Commands to check and manage disks, partitions, and devices.</li>
+        <li><strong>Networking:</strong> Commands to manage network interfaces and connectivity.</li>
+        <li><strong>Archives:</strong> Compressing, archiving, and extracting files.</li>
+        <li><strong>Shell & Env:</strong> Environment configuration, shell scripting basics.</li>
+        <li><strong>Users & Sessions:</strong> Managing users, groups, and login sessions.</li>
+    </ul>
+</section>
+
+</main>
+</div>
+
+<script>
+/* ================= CURSOR ================= */
+const staticCursor = document.getElementById('static-cursor');
+document.addEventListener('mousemove', (e) => {
+    staticCursor.style.left = `${e.clientX}px`;
+    staticCursor.style.top = `${e.clientY}px`;
+});
+
+const trailContainer2 = document.getElementById('cursor-trail-container2');
+if (trailContainer2) {
+    document.addEventListener('mousemove', (e) => {
+        const triangle = document.createElement('div');
+        triangle.className = 'trianglewhite5';
+        triangle.style.left = `${e.clientX}px`;
+        triangle.style.top = `${e.clientY}px`;
+        trailContainer2.appendChild(triangle);
+        setTimeout(() => triangle.style.opacity = '0', 100);
+        setTimeout(() => triangle.remove(), 1000);
+    });
+}
+
+/* ================= SIDEBAR TOGGLE ================= */
+function togglePages() {
+    const dropdown = document.getElementById("pageDropdown");
+    const arrow = document.querySelector(".sidebar-header .arrow");
+    const isOpen = dropdown.style.display === "block";
+    dropdown.style.display = isOpen ? "none" : "block";
+    arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+}
+
+/* ================= SCROLL SPY ================= */
+const sections = document.querySelectorAll(".section");
+const links = document.querySelectorAll(".sidebar a");
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            links.forEach(l => l.classList.remove("active"));
+            const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
+            if (active) active.classList.add("active");
+        }
+    });
+}, { rootMargin: "-40% 0px -50% 0px" });
+
+sections.forEach(sec => observer.observe(sec));
+</script>
+
+</body>
+</html>
