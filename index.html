@@ -18,455 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Candal&display=swap" rel="stylesheet">
 
     <style>
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-            cursor: none; 
-        }
-        body {
-            cursor: none;
-            /* Prevents scrollbar flash from cursor trail at edge of screen */
-            overflow-x: hidden; 
-            margin: 0;
-            background-color: #000;
-        }
 
-        /* --- MENU ACTIVE STATE & SCROLL OFFSET --- */
-        .menu a.active {
-            color: #fc7c7c !important; 
-        }
-        #about, 
-        #projects, 
-        #languages {
-            scroll-margin-top: 121px;
-        }
-
-        /* Cursor */
-        #cursor-trail-container2 {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 10000;
-        }
-
-        /* STATIC CURSOR */
-        #static-cursor {
-            position: fixed;
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-bottom: 24px solid white;
-            filter: drop-shadow(0 0 4px red);
-            pointer-events: none;
-            z-index: 10001;
-            /* Start off-screen so it doesn't appear at top-left on load */
-            top: -100px;
-            left: -100px;
-            /* Centers the triangle on mouse coordinates */
-            transform: translate(-50%, -50%);
-        }
-
-        .trianglewhite5 {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-bottom: 24px solid white;
-            filter: drop-shadow(0 0 4px red);
-            animation: pulse5 5s ease-in-out infinite;
-            transition: opacity 0.3s ease;
-            transform: translate(-50%, -50%); 
-        }
-
-        @keyframes pulse5 {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.1); }
-        }
-
-        /* Layout */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            margin: 45px;
-            gap: 30px;
-        }
-        .project-card {
-            background-color: #111;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            padding-bottom: 10px;
-            box-shadow: 0 6px 12px white;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 18px white;
-        }
-        a {
-            text-decoration: none;
-            color: white; 
-            transition: color 0.3s ease;
-        }
-        .menu a:hover {
-            color: #fc7c7c; 
-        }
-
-        .project-card img {
-            width: 100%;
-            display: block;
-        }
-        .project-card h3 {
-            margin: 1rem 1rem 0.5rem;
-            font-size: 25px;
-            font-family: "Candal", sans-serif;
-            font-weight: 500;
-            color: #fc7c7c;
-            transition: color 0.3s ease;
-        }
-        .project-card:hover h3 {
-            color: white;
-        }
-        .project-card p {
-            margin: 0 1rem 1.5rem;
-            font-size: 19px;
-            font-family: 'Titillium Web', sans-serif;
-            color: white;
-        }
-
-        /* Buttons */
-        .project-links {
-            margin: 0.4rem 1rem 1rem;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .project-btn {
-            padding: 5px 18px;
-            border-radius: 999px;
-            background-color: transparent;
-            border: 1px solid #fc7c7c;
-            color: #fc7c7c;
-            font-family: 'Titillium Web', sans-serif;
-            font-size: 17px;
-            transition: 0.3s ease;
-        }
-        .icon-btn {
-            border-radius: 999px;
-            padding: 5px 15px;
-            border: 1px solid #fc7c7c;
-            color: #fc7c7c;
-            font-size: 20px;
-            transition: 0.3s ease;
-        }
-        .project-btn:hover,
-        .icon-btn:hover {
-            color: white;
-            border: 1px solid white;
-        }
-
-        /* Typing cursor */
-        .red-cursor {
-            display: inline-block;
-            width: 12px;
-            height: 29px;
-            background-color: #fc7c7c;
-            margin-left: 5px;
-            vertical-align: middle;
-            animation: blinkRed 1s steps(2, start) infinite;
-        }
-        @keyframes blinkRed {
-            0%, 50% { opacity: 1; }
-            50.01%, 100% { opacity: 0; }
-        }
-
-        h1 {
-            text-align: center;
-            font-family: 'Silkscreen', cursive;
-            font-weight: 700px; 
-            font-size: 29px;
-            color: white;
-            margin-top: 40px;
-        }
-        .canvasred, .canvasblack, .canvaswhite, .canvasred2 {
-            width: 240px;
-            height: 240px;
-            position: relative;
-            background-color: transparent;
-        }
-        .trianglered, .triangleblack, .trianglewhite, .trianglered2 {
-            position: absolute;
-            width: 0;
-            height: 0;
-            animation: pulse1 5s ease-in-out infinite;
-            transition: color 0.4s ease;
-        }
-
-        .trianglered {
-            filter: drop-shadow(0 0 1px black);
-        }
-        .triangleblack {
-            filter: drop-shadow(0 0 1px white);
-            animation: pulse2 5s ease-in-out infinite;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-bottom: 24px solid black;
-        }
-        .trianglewhite {
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-bottom: 24px solid white;
-            filter: drop-shadow(0 0 4px red);
-            animation: pulse2 5s ease-in-out infinite;
-        }
-        .trianglered2 {
-            filter: drop-shadow(0 0 1px white);
-            animation: pulse2 5s ease-in-out infinite;
-        }
-
-        @keyframes pulse1 {
-            0%, 100% {
-                transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1);
-            }
-            50% {
-                transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.6)) rotate(var(--r)) scale(1.1);
-            }
-        }
-
-        @keyframes pulse2 {
-            0%, 100% {
-                transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1);
-            }
-            50% {
-                transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.6)) rotate(var(--r)) scale(1.1);
-            }
-        }
-
-        /* --- REPO GRID CSS --- */
-        .repo-grid {
-            display: grid !important;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 20px 50px !important;
-        }
-          
-        .repo-card {
-            background-color: #111;
-            display: flex !important;
-            flex-direction: column;
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            box-sizing: border-box; 
-            min-height: 150px;
-            padding: 15px !important;
-        }
-        .repo-preview-img {
-            width: calc(100% - 30px); /* full width minus padding space */
-            margin: 10px auto 20px auto; 
-            border-radius: 10px;
-            display: block;
-        }
-        /* Responsive: Switch to 1 column on mobile/small screens */
-        @media (max-width: 900px) {
-            .repo-grid {
-                grid-template-columns: 1fr;
-                padding: 20px !important;
-            }
-            .project-grid {
-                grid-template-columns: 1fr;
-                margin: 20px;
-            }
-        }
-        .repo-card a h3,
-        .repo-card a p,
-        .repo-card a ul {
-            margin-top: 15px !important;
-            margin-bottom: 30px !important;
-        }
-        .repo-card h3:hover {
-            color: white;
-        }
-        .folder-list ul li {
-            margin-bottom: 20px;
-        }
-        .folder-list ul li a {
-            display: block;        
-            padding: 0;
-            margin: 0 !important;
-            margin-bottom: 10px;
-        }
-        .folder-list ul {
-            list-style: none;
-            padding-left: 0; 
-            margin-top: 5px !important;
-            margin-bottom: 5px !important;
-        }
-
-/* BLOG LAYOUT */
-.blog-layout {
-    display: flex;
-    gap: 40px;
-    padding: 40px 60px;
-}
-
-/* SIDEBAR */
-.blog-sidebar {
-    width: 220px;
-    border-right: 1px solid #333;
-    padding-right: 20px;
-}
-
-.blog-sidebar h3 {
-    font-family: "Candal", sans-serif;
-    color: #fc7c7c;
-    margin-bottom: 15px;
-}
-
-.tag-filters {
-    list-style: none;
-    padding: 0;
-}
-
-.tag-filters li {
-    cursor: pointer;
-    margin-bottom: 12px;
-    font-family: 'Titillium Web', sans-serif;
-    color: #aaa;
-    transition: 0.3s ease;
-}
-
-.tag-filters li:hover,
-.tag-filters li.active {
-    color: #f5f5dc;
-}
-
-/* ARTICLE GRID */
-.article-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    flex: 1;
-}
-/* ARTICLE CARD */
-.article-card {
-    background-color: #111;
-    padding: 15px;
-    box-shadow: 0 6px 12px white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.article-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px white;
-}
-.article-card img {
-    width: 100%;
-    display: block; /* SAME behavior as project cards */
-}
-.article-card h3 {
-    margin: 1rem;
-    font-family: "Candal", sans-serif;
-    font-size: 24px;
-    color: #fc7c7c;
-    transition: color 0.3s ease;
-}
-.article-card:hover h3 {
-    color: white;
-}
-
-.article-card p {
-    margin: 0 1rem 1rem;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 18px;
-    color: white;
-}
-/* TAGS */
-.article-tags {
-    margin: 0 1rem;
-    font-family: 'Titillium Web', sans-serif;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-.article-tags span {
-    font-size: 15px;
-    font-family: 'Titillium Web', sans-serif;
-    color: #fc7c7c;
-    border: 1px solid #fc7c7c;
-    padding: 4px 10px;
-    border-radius: 999px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    .blog-layout {
-        flex-direction: column;
-        padding: 20px;
-    }
-
-    .blog-sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #333;
-        padding-bottom: 20px;
-    }
-
-    .article-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-        .topbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 9999;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 40px;
-            box-sizing: border-box;
-        }
-
-        /* --- BACKGROUND WRAPPER FOR PROJECTS --- */
-        /* 0% and 100% are black (to fade edges). 
-           15% to 85% is completely transparent (rgba(0,0,0,0)) 
-           to show the image underneath at full opacity. */
-        .projects-bg-wrapper {
-            position: relative;
-            width: 100%;
-            background: linear-gradient(to bottom, 
-                #000 0%, 
-                rgba(0,0,0,0) 15%, 
-                rgba(0,0,0,0) 85%, 
-                #000 100%
-            ),
-            url(styles/sky1.png);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            padding-top: 30px;
-            padding-bottom: 50px;
-            margin-top: 30px;
-        }
-
-
-.work-link {
-    color: #fc7c7c;
-    text-decoration: none;
-    transition: text-decoration-color 0.3s ease;
-}
-
-.work-link:hover {
-    text-decoration: underline;
-}
 
     </style>
 </head>
@@ -475,23 +27,24 @@
     <div id="static-cursor"></div>
     <div id="cursor-trail-container2"></div>
 
-    <div class="topbar">
-        <div class="header" style="display: flex; align-items: center;">
-            <a href="index.html">
-                <img src="styles/banner.png" alt="Logo" style="height: 80px; display: block;" />
-            </a>
-        </div>
-          
-        <div class="menu">
-            <a href="#about" class="menu-link active">About</a><span style="color: red">|</span>
-            <a href="#projects" class="menu-link">Projects</a><span style="color: red">|</span>
-            <a href="#blog" class="menu-link">Blog</a>
-        </div>
-          
-        <div class="social-icons">
-            <a href="https://github.com/3riy" target="_blank" class="fab fa-github"></a>
-        </div>
+<div class="topbar">
+    <div class="header" style="display: flex; align-items: center;">
+        <a href="index.html">
+            <img src="styles/banner.png" alt="Logo" style="height: 80px; display: block;" />
+        </a>
     </div>
+      
+    <div class="menu">
+        <a href="#about" class="menu-link active">About</a><span style="color: red">|</span>
+        <a href="#projects" class="menu-link">Projects</a><span style="color: red">|</span>
+        <a href="#learn" class="menu-link">Learn</a><span style="color: red">|</span>
+        <a href="#blog" class="menu-link">Blog</a>
+    </div>
+      
+    <div class="social-icons">
+        <a href="https://github.com/3riy" target="_blank" class="fab fa-github"></a>
+    </div>
+</div>
     <br>
 
     <div class="hero-flex-container" id="about">
@@ -612,6 +165,23 @@
         </div>
         <br>
 
+    </div>
+
+<!-- LEARN SECTION -->
+<div id="learn">
+    <h1>Learn</h1>
+
+    <div class="repo-grid">
+        <!-- Linux Commands Guidebook Card -->
+        <div class="repo-card">
+            <a href="https://3riy.github.io/linuxcommands/introduction.html" target="_blank">
+                <h3>🐧 Linux Commands Guidebook</h3>
+                <img src="img/linuxcommands.png" class="repo-preview-img" alt="Linux commands">
+                <p>An ever-growing collection of Linux shell commands, organized by sub-topic, with examples and usage tips.</p>
+            </a>
+        </div>
+    </div>
+
     <h1>Languages</h1>
 
     <div class="repo-grid">
@@ -688,7 +258,8 @@
         </div>
 
     </div>
-    </div>
+
+</div>
 
     <br><br>
     
@@ -708,7 +279,7 @@
             <li data-tag="python">Python</li>
             <li data-tag="c">C</li>
             <li data-tag="bash">Bash</li>
-            <li data-tag="ai-ml">AI/ML</li>
+            <li data-tag="ai/ml">AI/ML</li>
             <li data-tag="robotics">Robotics</li>
             <li data-tag="linux">Linux</li>
 
@@ -727,19 +298,6 @@
             <div class="article-tags">
                 <span>#ai/ml</span>
                 <span>#robotics</span>
-            </div>
-        </div>
-
-        <div class="article-card" data-tags="bash linux">
-            <a href="https://3riy.github.io/linuxcommands/introduction.html" target="_blank">
-                <img src="img/linuxcommands.png" alt="Linux commands">
-                <h3>Linux Commands Guidebook</h3>
-                <p>An evergoing collection of Linux shell commands including how to run them. Multiple pages covering commands by sub-topic.
-                </p>
-            </a>
-            <div class="article-tags">
-                <span>#bash</span>
-                <span>#linux</span>
             </div>
         </div>
         
@@ -802,7 +360,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             const menuLinks = document.querySelectorAll('.menu-link');
             // Ensure these IDs match your HTML exactly
-            const sections = document.querySelectorAll('#about, #projects, #blog');
+            const sections = document.querySelectorAll('#about, #projects, #learn, #blog');
 
             function changeLinkState() {
                 let current = "";
