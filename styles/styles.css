@@ -764,6 +764,7 @@ p {
 .repo-card p {
   margin-left: 1rem;
   margin-right: 1rem;
+  margin-top: 15px;
   margin-bottom: 20px;
   font-size: 19px;
   font-family: 'Titillium Web', sans-serif;
