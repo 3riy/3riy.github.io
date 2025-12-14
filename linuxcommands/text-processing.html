@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Text Processing - Linux Commands Guidebook</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap" rel="stylesheet">
+
+<style>
+html { scroll-behavior: smooth; cursor: none; }
+body {
+    margin: 0;
+    background: #000;
+    color: white;
+    font-family: 'Titillium Web', sans-serif;
+    overflow-x: hidden;
+}
+
+/* TOPBAR */
+.topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 9999;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    box-sizing: border-box;
+}
+.menu a {
+    color: white;
+    text-decoration: none;
+    margin: 0 6px;
+}
+.menu a:hover { color: #fc7c7c; }
+
+/* TITLE */
+.page-title {
+    margin-top: 65px;
+    text-align: center;
+    font-family: 'Silkscreen', monospace;
+    font-size: 44px;
+    letter-spacing: 2px;
+}
+
+/* LAYOUT */
+.layout {
+    display: flex;
+    padding: 40px 60px;
+    gap: 40px;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 260px;
+    left: 60px;
+    width: 280px;
+    border-right: 1px solid #333;
+    padding-right: 20px;
+}
+.sidebar h3 {
+    color: #fc7c7c;
+    font-family: 'Silkscreen', monospace;
+    font-size: 32px;
+}
+.sidebar ul {
+    font-size: 22px;
+    list-style: none;
+    padding: 0;
+}
+.sidebar li { margin-bottom: 12px; }
+.sidebar a {
+    color: #aaa;
+    text-decoration: none;
+}
+.sidebar a:hover { color: #fc7c7c; }
+.sidebar a.active {
+    color: #fc7c7c;
+    font-weight: bold;
+}
+
+/* CONTENT */
+.content {
+    margin-left: 325px;
+    flex: 1;
+}
+.section {
+    margin-bottom: 80px;
+}
+.section h2 {
+    color: #fc7c7c;
+    font-size: 45px;
+}
+
+/* COMMAND BLOCK */
+.command { margin: 20px 0; }
+.command h4 {
+    font-family: 'Overpass Mono', monospace;
+    color: #f5f5dc;
+    font-size: 22px;
+}
+.command p {
+    margin: 4px 0 6px;
+    color: #ccc;
+    font-size: 22px;
+}
+pre {
+    background: #111;
+    padding: 12px;
+    border-left: 4px solid #fc7c7c;
+    overflow-x: auto;
+    font-family: 'Overpass Mono', monospace;
+    font-size: 20px;
+}
+
+/* EXPAND */
+.toggle-btn {
+    cursor: pointer;
+    color: #fc7c7c;
+    font-family: 'Silkscreen', monospace;
+    font-size: 22px;
+}
+.advanced {
+    display: none;
+    margin-top: 10px;
+}
+
+/* PAGE DROPDOWN */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.sidebar-header .arrow {
+    color: white;
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+.page-dropdown {
+    display: none;
+    background: white;
+    margin: 10px 0 18px;
+    border-radius: 4px;
+    max-height: 260px;
+    overflow-y: auto;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+.page-dropdown a {
+    display: block;
+    padding: 10px 14px;
+    font-size: 22px;
+    color: black;
+    text-decoration: none;
+}
+.page-dropdown a:hover { background: #e5e5e5; }
+.page-dropdown a.active-page {
+    background: #e5e5e5;
+    font-weight: bold;
+}
+
+/* CURSOR */
+#cursor-trail-container2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+}
+#static-cursor {
+    position: fixed;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red);
+    pointer-events: none;
+    z-index: 10001;
+    top: -100px;
+    left: -100px;
+    transform: translate(-50%, -50%);
+}
+.trianglewhite5 {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red);
+    animation: pulse5 5s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+@keyframes pulse5 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@media (max-width: 900px) {
+    .sidebar { position: static; width: 100%; border: none; }
+    .content { margin-left: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="static-cursor"></div>
+<div id="cursor-trail-container2"></div>
+
+<div class="topbar">
+    <a href="../index.html">
+        <img src="../styles/banner.png" height="80">
+    </a>
+    <div class="menu">
+        <a href="../index.html#about">About</a><span style="color: red">|</span>
+        <a href="../index.html#projects">Projects</a><span style="color: red">|</span>
+        <a href="../index.html#blog"><span style="color:#fc7c7c">Blog</span></a>
+    </div>
+</div>
+
+<h1 class="page-title">Linux Commands Guidebook</h1>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+<div class="sidebar-header" onclick="togglePages()">
+    <h3>Text Processing</h3>
+    <span class="arrow">▼</span>
+</div>
+
+<div class="page-dropdown" id="pageDropdown">
+    <a href="gnu-coreutils.html">1. GNU Coreutils</a>
+    <a href="text-processing.html" class="active-page">2. Text Processing</a>
+    <a href="processes-and-system.html">3. Processes & System</a>
+    <a href="disk-hardware.html">4. Disk & Hardware</a>
+    <a href="networking.html">5. Networking</a>
+    <a href="archives.html">6. Archives</a>
+    <a href="shell-and-env.html">7. Shell & Env</a>
+    <a href="users-and-sessions.html">8. Users & Sessions</a>
+</div>
+
+<ul>
+    <li><a href="#search">Searching</a></li>
+    <li><a href="#transform">Transforming</a></li>
+    <li><a href="#compare">Comparing</a></li>
+</ul>
+
+</aside>
+
+<main class="content">
+
+<!-- ================= SEARCHING ================= -->
+<section id="search" class="section">
+<h2>Searching Text</h2>
+
+<div class="command">
+<h4>1. grep</h4>
+<p>Searches for a pattern in files.</p>
+<pre><code>grep "error" logfile.txt</code></pre>
+</div>
+
+<div class="command">
+<h4>2. grep -i</h4>
+<p>Case-insensitive search.</p>
+<pre><code>grep -i "warning" log.txt</code></pre>
+</div>
+
+<div class="command">
+<h4>3. grep -r</h4>
+<p>Recursive search in directories.</p>
+<pre><code>grep -r "main" src/</code></pre>
+</div>
+
+<div class="command">
+<h4>4. grep -n</h4>
+<p>Show line numbers.</p>
+<pre><code>grep -n "TODO" code.c</code></pre>
+</div>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
+<div class="advanced">
+
+<div class="command">
+<h4>5. grep -E</h4>
+<p>Extended regular expressions.</p>
+<pre><code>grep -E "fail|error|panic" log.txt</code></pre>
+</div>
+
+<div class="command">
+<h4>6. grep -v</h4>
+<p>Invert match.</p>
+<pre><code>grep -v "^#" config.conf</code></pre>
+</div>
+
+<div class="command">
+<h4>7. rg (ripgrep)</h4>
+<p>Fast recursive searching (if installed).</p>
+<pre><code>rg "function" src/</code></pre>
+</div>
+
+</div>
+</section>
+
+<!-- ================= TRANSFORMING ================= -->
+<section id="transform" class="section">
+<h2>Transforming Text</h2>
+
+<div class="command">
+<h4>1. sed</h4>
+<p>Stream editor for text substitution.</p>
+<pre><code>sed 's/foo/bar/g' file.txt</code></pre>
+</div>
+
+<div class="command">
+<h4>2. tr</h4>
+<p>Translate or delete characters.</p>
+<pre><code>tr 'a-z' 'A-Z'</code></pre>
+</div>
+
+<div class="command">
+<h4>3. cut</h4>
+<p>Extract columns from text.</p>
+<pre><code>cut -d',' -f1 data.csv</code></pre>
+</div>
+
+<div class="command">
+<h4>4. paste</h4>
+<p>Merge lines of files.</p>
+<pre><code>paste file1 file2</code></pre>
+</div>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
+<div class="advanced">
+
+<div class="command">
+<h4>5. awk</h4>
+<p>Pattern scanning and processing.</p>
+<pre><code>awk '{print $1, $3}' file.txt</code></pre>
+</div>
+
+<div class="command">
+<h4>6. column</h4>
+<p>Align output into columns.</p>
+<pre><code>column -t data.txt</code></pre>
+</div>
+
+<div class="command">
+<h4>7. dos2unix</h4>
+<p>Convert Windows line endings.</p>
+<pre><code>dos2unix script.sh</code></pre>
+</div>
+
+</div>
+</section>
+
+<!-- ================= COMPARING ================= -->
+<section id="compare" class="section">
+<h2>Comparing & Analyzing Text</h2>
+
+<div class="command">
+<h4>1. diff</h4>
+<p>Compare files line by line.</p>
+<pre><code>diff old.txt new.txt</code></pre>
+</div>
+
+<div class="command">
+<h4>2. sort</h4>
+<p>Sort lines of text.</p>
+<pre><code>sort names.txt</code></pre>
+</div>
+
+<div class="command">
+<h4>3. uniq</h4>
+<p>Filter duplicate lines.</p>
+<pre><code>sort file | uniq</code></pre>
+</div>
+
+<div class="command">
+<h4>4. wc</h4>
+<p>Count lines, words, characters.</p>
+<pre><code>wc -l file.txt</code></pre>
+</div>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
+<div class="advanced">
+
+<div class="command">
+<h4>5. comm</h4>
+<p>Compare two sorted files.</p>
+<pre><code>comm file1 file2</code></pre>
+</div>
+
+<div class="command">
+<h4>6. sha256sum</h4>
+<p>Verify file integrity.</p>
+<pre><code>sha256sum file.txt</code></pre>
+</div>
+
+<div class="command">
+<h4>7. cksum</h4>
+<p>Checksum and byte count.</p>
+<pre><code>cksum file.txt</code></pre>
+</div>
+
+</div>
+</section>
+
+</main>
+</div>
+
+<script>
+/* ================= STATIC CURSOR ================= */
+const staticCursor = document.getElementById('static-cursor');
+
+document.addEventListener('mousemove', (e) => {
+    staticCursor.style.left = `${e.clientX}px`;
+    staticCursor.style.top  = `${e.clientY}px`;
+});
+
+
+/* ================= CURSOR TRAIL ================= */
+const trailContainer2 = document.getElementById('cursor-trail-container2');
+
+document.addEventListener('mousemove', (e) => {
+    const triangle = document.createElement('div');
+    triangle.className = 'trianglewhite5';
+    triangle.style.left = `${e.clientX}px`;
+    triangle.style.top  = `${e.clientY}px`;
+
+    trailContainer2.appendChild(triangle);
+
+    setTimeout(() => {
+        triangle.style.opacity = '0';
+    }, 100);
+
+    setTimeout(() => {
+        triangle.remove();
+    }, 1000);
+});
+
+
+/* ================= ADVANCED TOGGLE ================= */
+function toggle(btn) {
+    const target = btn.nextElementSibling;
+    target.style.display =
+        target.style.display === "block" ? "none" : "block";
+}
+
+
+/* ================= SCROLL SPY ================= */
+const sections = document.querySelectorAll(".section");
+const links    = document.querySelectorAll(".sidebar a");
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            links.forEach(link => link.classList.remove("active"));
+
+            const activeLink = document.querySelector(
+                `.sidebar a[href="#${entry.target.id}"]`
+            );
+
+            if (activeLink) {
+                activeLink.classList.add("active");
+            }
+        }
+    });
+}, {
+    rootMargin: "-40% 0px -50% 0px"
+});
+
+sections.forEach(section => observer.observe(section));
+
+
+/* ================= PAGE DROPDOWN ================= */
+function togglePages() {
+    const dropdown = document.getElementById("pageDropdown");
+    const arrow    = document.querySelector(".sidebar-header .arrow");
+
+    const isOpen = dropdown.style.display === "block";
+
+    dropdown.style.display = isOpen ? "none" : "block";
+    arrow.style.transform = isOpen
+        ? "rotate(0deg)"
+        : "rotate(180deg)";
+}
+</script>
+
+</body>
+</html>
