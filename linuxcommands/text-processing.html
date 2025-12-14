@@ -95,6 +95,7 @@ body {
 }
 .section {
     margin-bottom: 80px;
+    scroll-margin-top: 140px;
 }
 .section h2 {
     color: #fc7c7c;
@@ -242,6 +243,7 @@ pre {
 </div>
 
 <div class="page-dropdown" id="pageDropdown">
+    <a href="introduction.html">INTRODUCTION</a>
     <a href="gnu-coreutils.html">1. GNU Coreutils</a>
     <a href="text-processing.html" class="active-page">2. Text Processing</a>
     <a href="processes-and-system.html">3. Processes & System</a>
@@ -270,25 +272,25 @@ pre {
 <h4>1. grep</h4>
 <p>Searches for a pattern in files.</p>
 <pre><code>grep "error" logfile.txt</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. grep -i</h4>
 <p>Case-insensitive search.</p>
 <pre><code>grep -i "warning" log.txt</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. grep -r</h4>
 <p>Recursive search in directories.</p>
 <pre><code>grep -r "main" src/</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>4. grep -n</h4>
 <p>Show line numbers.</p>
 <pre><code>grep -n "TODO" code.c</code></pre>
-</div>
+</div><br>
 
 <span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
 <div class="advanced">
@@ -297,13 +299,13 @@ pre {
 <h4>5. grep -E</h4>
 <p>Extended regular expressions.</p>
 <pre><code>grep -E "fail|error|panic" log.txt</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>6. grep -v</h4>
 <p>Invert match.</p>
 <pre><code>grep -v "^#" config.conf</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>7. rg (ripgrep)</h4>
@@ -322,25 +324,25 @@ pre {
 <h4>1. sed</h4>
 <p>Stream editor for text substitution.</p>
 <pre><code>sed 's/foo/bar/g' file.txt</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. tr</h4>
 <p>Translate or delete characters.</p>
 <pre><code>tr 'a-z' 'A-Z'</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. cut</h4>
 <p>Extract columns from text.</p>
 <pre><code>cut -d',' -f1 data.csv</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>4. paste</h4>
 <p>Merge lines of files.</p>
 <pre><code>paste file1 file2</code></pre>
-</div>
+</div><br>
 
 <span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
 <div class="advanced">
@@ -349,13 +351,13 @@ pre {
 <h4>5. awk</h4>
 <p>Pattern scanning and processing.</p>
 <pre><code>awk '{print $1, $3}' file.txt</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>6. column</h4>
 <p>Align output into columns.</p>
 <pre><code>column -t data.txt</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>7. dos2unix</h4>
@@ -374,25 +376,25 @@ pre {
 <h4>1. diff</h4>
 <p>Compare files line by line.</p>
 <pre><code>diff old.txt new.txt</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. sort</h4>
 <p>Sort lines of text.</p>
 <pre><code>sort names.txt</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. uniq</h4>
 <p>Filter duplicate lines.</p>
 <pre><code>sort file | uniq</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>4. wc</h4>
 <p>Count lines, words, characters.</p>
 <pre><code>wc -l file.txt</code></pre>
-</div>
+</div><br>
 
 <span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
 <div class="advanced">
@@ -401,13 +403,13 @@ pre {
 <h4>5. comm</h4>
 <p>Compare two sorted files.</p>
 <pre><code>comm file1 file2</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>6. sha256sum</h4>
 <p>Verify file integrity.</p>
 <pre><code>sha256sum file.txt</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>7. cksum</h4>
