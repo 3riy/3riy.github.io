@@ -25,21 +25,26 @@
 }
 
 /* Layer the background using a pseudo-element for smooth fade */
-.projects-bg-wrapper {
-    position: relative;
-    overflow: hidden;
+.projects-bg-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* allow clicks through it */
+    
+    background: url('styles/sky1.png') center center / cover no-repeat;
 
-    /* Extend the wrapper height at top and bottom */
-    padding-top: 20px;   /* extra space above content */
-    padding-bottom: 20px; /* extra space below content */
+    /* Extend fade at top and bottom for smoother transition */
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 75%, rgba(0,0,0,0));
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1) 25%, rgba(0,0,0,1) 75%, rgba(0,0,0,0));
+    mask-repeat: no-repeat;
+    mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: cover;
 
-    /* Background layers: top fade, sky image, bottom fade */
-    background: 
-        linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 15%), /* fade in from top */
-        url('styles/sky1.png') center center / cover no-repeat,           /* sky image */
-        linear-gradient(to bottom, rgba(0,0,0,0) 85%, rgba(0,0,0,1) 100%); /* fade out at bottom */
-
-    background-blend-mode: overlay; /* blend gradients with image */
+    z-index: -1;
 }
 
 </style>
@@ -107,23 +112,12 @@
 
 <!-- PROJECTS SECTION WITH BACKGROUND FADE -->
 <div class="projects-bg-wrapper">
-    <div class="projects-bg"></div> <!-- background layer -->
+    <div class="projects-bg"></div>
     
     <div id="projects">
         <h1 id="typewriter"></h1>
 
         <div class="project-grid">
-
-            <div class="project-card">
-                <img src="img/rr.png" alt="sots">
-                <h3>Rayvn: Autonomous Victim Detection and Communication Mesh Bots</h3>
-
-                <div class="project-links">
-                    <a href="https://rayvn-labs.github.io/" target="_blank" class="project-btn">🌐 Website</a>
-                </div>
-
-                <p>Hybrid IoT/AI-powered rescue bots for victim detection and communication in crisis zones - integrating aerial drones + ground crawler bots with sensors + LoRa mesh network + CV human detection + path planning logic into one modular system.</p>
-            </div>
 
             <div class="project-card">
                 <img src="img/cc.png" alt="Road Incident Detection System">
@@ -158,6 +152,21 @@
             </div>
 
         </div>
+
+        <div class="project-grid">
+
+            <div class="project-card">
+                <img src="img/emeraldbeach_night.png" alt="sots">
+                <h3>Shadows On The Sands</h3>
+
+                <div class="project-links">
+                    <a href="https://rii2.itch.io/shadows-on-the-sands" target="_blank" class="project-btn">View on itch.io</a>
+                </div>
+
+                <p>Lore-based mystery narrative game set in a beachside restaurant.</p>
+            </div>
+        </div>
+        
     </div>
 </div>
 
