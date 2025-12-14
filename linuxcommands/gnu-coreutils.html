@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GNU Core Utilities - Linux Commands Guidebook</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap" rel="stylesheet">
+
+<style>
+html {
+    scroll-behavior: smooth;
+    cursor: none;
+}
+body {
+    margin: 0;
+    background: #000;
+    color: white;
+    font-family: 'Titillium Web', sans-serif;
+    overflow-x: hidden;
+}
+
+/* ================= TOPBAR ================= */
+.topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 9999;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    box-sizing: border-box;
+}
+.menu a {
+    color:white;
+    text-decoration:none;
+    margin:0 6px;
+}
+.menu a:hover { color:#fc7c7c; }
+
+/* ================= PAGE TITLE ================= */
+.page-title {
+    margin-top: 65px;
+    text-align:center;
+    font-family:'Silkscreen', monospace;
+    font-size:44px;
+    letter-spacing:2px;
+}
+
+/* ================= LAYOUT ================= */
+.layout {
+    display:flex;
+    padding:40px 60px;
+    gap:40px;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    position: fixed;
+    top: 260px;
+    left: 60px;
+    width: 280px;
+    border-right:1px solid #333;
+    padding-right: 20px;
+}
+.sidebar h3 {
+    color:#fc7c7c;
+    font-family:'Silkscreen', monospace;
+    font-size: 35px;
+}
+.sidebar ul {
+    font-size: 22px;
+    list-style:none;
+    padding:0;
+}
+.sidebar li {
+    margin-bottom:12px;
+}
+.sidebar a:hover {
+    color:#fc7c7c;
+}
+.sidebar a {
+    color:#aaa;
+    text-decoration:none;
+}
+.sidebar a.active {
+    color:#fc7c7c;
+    font-weight: bold;
+}
+
+/* ================= CONTENT ================= */
+.content {
+    margin-left: 325px;
+    flex:1;
+}
+.section {
+    margin-bottom:80px;
+}
+.section h2 {
+    color:#fc7c7c;
+    font-family:'Titillium Web', sans-serif;
+    font-size: 45px;
+}
+
+/* ================= COMMAND BLOCK ================= */
+.command {
+    margin:20px 0;
+}
+.command h4 {
+    font-family:'Overpass Mono', monospace;
+    color:#f5f5dc;
+    font-size: 22px;
+}
+.command p {
+    margin: 4px 0 6px;
+    color:#ccc;
+    font-size: 22px;
+}
+pre {
+    background:#111;
+    padding:12px;
+    border-left:4px solid #fc7c7c;
+    overflow-x:auto;
+    font-family:'Overpass Mono', monospace;
+    font-size: 20px;
+}
+
+/* ================= EXPAND ================= */
+.toggle-btn {
+    cursor:pointer;
+    color:#fc7c7c;
+    font-family:'Silkscreen', monospace;
+    font-size: 22px;
+}
+.advanced {
+    display:none;
+    margin-top:10px;
+}
+
+/* ================= PAGE DROPDOWN ================= */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.sidebar-header .arrow {
+    color: white;
+    font-size: 18px;
+    margin-left: 6px;
+    transition: transform 0.2s ease;
+}
+
+.page-dropdown {
+    display: none;
+    background: white;
+    margin: 10px 0 18px;
+    border-radius: 4px;
+    max-height: 260px;
+    overflow-y: auto;         /* ENABLE SCROLLING */
+    overflow-x: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+.page-dropdown a {
+    display: block;
+    padding: 10px 14px;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+    font-size: 22px;
+}
+.page-dropdown a:hover {
+    background: #e5e5e5;
+    color: black;
+}
+.page-dropdown a.active-page {
+    background: #e5e5e5;
+    font-weight: bold;
+}
+
+/* ================= CURSOR TRAIL ================= */
+#cursor-trail-container2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+/* STATIC CURSOR */
+#static-cursor {
+    position: fixed;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red);
+    pointer-events: none;
+    z-index: 10001;
+    top: -100px;
+    left: -100px;
+    transform: translate(-50%, -50%);
+}
+
+.trianglewhite5 {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red);
+    animation: pulse5 5s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes pulse5 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 900px) {
+    .sidebar {
+        position: static;
+        width:100%;
+        border-right:none;
+        padding-right:0;
+    }
+    .content {
+        margin-left:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="static-cursor"></div>
+<div id="cursor-trail-container2"></div>
+
+<div class="topbar">
+    <a href="../index.html">
+        <img src="../styles/banner.png" height="80">
+    </a>
+    <div class="menu">
+        <a href="../index.html#about">About</a> |
+        <a href="../index.html#projects">Projects</a> |
+        <a href="../index.html#blog"><span style="color: #fc7c7c">Blog</span></a>
+    </div>
+</div>
+
+<h1 class="page-title">Linux Commands Guidebook</h1>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+<div class="sidebar-header" onclick="togglePages()">
+    <h3>Basic GNU Coreutils</h3>
+    <span class="arrow">▼</span>
+</div>
+
+<div class="page-dropdown" id="pageDropdown">
+    <a href="gnu-coreutils.html" class="active-page">1. GNU Coreutils</a>
+    <a href="text-processing.html">2. Text Processing</a>
+    <a href="processes-and-system.html">3. Processes & System</a>
+    <a href="disk-hardware.html">4. Disk & Hardware</a>
+    <a href="networking.html">5. Networking</a>
+    <a href="archives.html">6. Archives</a>
+    <a href="shell-and-env.html">7. Shell & Env</a>
+    <a href="users-and-sessions.html">8. Users & Sessions</a>
+</div>
+
+<ul>
+    <li><a href="#file">File Operations</a></li>
+    <li><a href="#dir">Directory Operations</a></li>
+    <li><a href="#view">Viewing Files</a></li>
+    <li><a href="#perm">Permissions</a></li>
+</ul>
+</aside>
+
+<main class="content">
+
+<!-- ================= FILE OPERATIONS ================= -->
+<section id="file" class="section">
+<h2>File Operations</h2>
+
+<div class="command">
+<h4>1. cp</h4>
+<p>Copies files or directories.</p>
+<pre><code>cp source.txt destination.txt</code></pre>
+</div><br>
+
+<div class="command">
+<h4>2. mv</h4>
+<p>Moves or renames files.</p>
+<pre><code>mv old.txt new.txt</code></pre>
+</div><br>
+
+<div class="command">
+<h4>3. rm</h4>
+<p>Deletes files.</p>
+<pre><code>rm file.txt</code></pre>
+</div><br>
+
+<div class="command">
+<h4>4. rm -rf</h4>
+<p>Force deletes directories recursively.</p>
+<pre><code>rm -rf folder</code></pre>
+</div><br>
+
+<div class="command">
+<h4>5. ln</h4>
+<p>Creates hard or symbolic links.</p>
+<pre><code>ln file link
+ln -s target symlink</code></pre>
+</div><br>
+
+<div class="command">
+<h4>6. stat</h4>
+<p>Displays detailed file metadata.</p>
+<pre><code>stat file.txt</code></pre>
+</div><br>
+
+<div class="command">
+<h4>7. file</h4>
+<p>Identifies file type.</p>
+<pre><code>file binary</code></pre>
+</div><br>
+
+<div class="command">
+<h4>8. touch</h4>
+<p>Creates empty files or updates timestamps.</p>
+<pre><code>touch newfile.txt</code></pre>
+</div><br>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
+<div class="advanced">
+
+<div class="command">
+<h4>9. shred</h4>
+<p>Overwrites files to prevent recovery.</p>
+<pre><code>shred file.txt</code></pre>
+</div><br>
+
+<div class="command">
+<h4>10. sync</h4>
+<p>Flushes filesystem write buffers.</p>
+<pre><code>sync</code></pre>
+</div><br>
+
+<div class="command">
+<h4>11. chattr</h4>
+<p>Changes file attributes.</p>
+<pre><code>chattr +i file.txt</code></pre>
+</div>
+
+</div>
+</section>
+
+<!-- ================= DIRECTORY OPERATIONS ================= -->
+<section id="dir" class="section">
+<h2>Directory Operations</h2>
+
+<div class="command">
+<h4>1. mkdir</h4>
+<p>Creates directories.</p>
+<pre><code>mkdir newdir</code></pre>
+</div><br>
+
+<div class="command">
+<h4>2. rmdir</h4>
+<p>Removes empty directories.</p>
+<pre><code>rmdir emptydir</code></pre>
+</div><br>
+
+<div class="command">
+<h4>3. pwd</h4>
+<p>Prints current working directory.</p>
+<pre><code>pwd</code></pre>
+</div><br>
+
+<div class="command">
+<h4>4. ls</h4>
+<p>Lists directory contents.</p>
+<pre><code>ls -la</code></pre>
+</div><br>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
+<div class="advanced">
+
+<div class="command">
+<h4>5. du</h4>
+<p>Displays disk usage.</p>
+<pre><code>du -sh *</code></pre>
+</div><br>
+
+<div class="command">
+<h4>6. readlink</h4>
+<p>Prints symbolic link target.</p>
+<pre><code>readlink symlink</code></pre>
+</div>
+
+</div>
+</section>
+
+<!-- ================= VIEWING FILES ================= -->
+<section id="view" class="section">
+<h2>Viewing Files</h2>
+
+<div class="command">
+<h4>1. cat</h4>
+<p>Prints file contents.</p>
+<pre><code>cat file.txt</code></pre>
+</div><br>
+
+<div class="command">
+<h4>2. less</h4>
+<p>Scrollable viewer.</p>
+<pre><code>less file.txt</code></pre>
+</div><br>
+
+<div class="command">
+<h4>3. nl</h4>
+<p>Displays line numbers.</p>
+<pre><code>nl file.txt</code></pre>
+</div><br>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
+<div class="advanced">
+
+<div class="command">
+<h4>4. od</h4>
+<p>Octal/character dump.</p>
+<pre><code>od -c file</code></pre>
+</div><br>
+
+<div class="command">
+<h4>5. strings</h4>
+<p>Extracts printable strings.</p>
+<pre><code>strings binary</code></pre>
+</div>
+
+</div>
+</section>
+
+<!-- ================= PERMISSIONS ================= -->
+<section id="perm" class="section">
+<h2>Permissions & Ownership</h2>
+
+<div class="command">
+<h4>1. chmod</h4>
+<p>Changes permissions.</p>
+<pre><code>chmod 755 script.sh</code></pre>
+</div><br>
+
+<div class="command">
+<h4>2. chown</h4>
+<p>Changes ownership.</p>
+<pre><code>chown user:group file</code></pre>
+</div><br>
+
+<div class="command">
+<h4>3. chgrp</h4>
+<p>Changes group ownership.</p>
+<pre><code>chgrp staff file</code></pre>
+</div><br>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
+<div class="advanced">
+
+<div class="command">
+<h4>4. umask</h4>
+<p>Sets default permission mode.</p>
+<pre><code>umask 022</code></pre>
+</div><br>
+
+<div class="command">
+<h4>5. lsattr</h4>
+<p>Lists extended file attributes.</p>
+<pre><code>lsattr file</code></pre>
+</div>
+
+</div>
+</section>
+
+</main>
+</div>
+
+<script>
+const staticCursor = document.getElementById('static-cursor');
+document.addEventListener('mousemove', (e) => {
+    staticCursor.style.left = `${e.clientX}px`;
+    staticCursor.style.top = `${e.clientY}px`;
+});
+
+const trailContainer2 = document.getElementById('cursor-trail-container2');
+if (trailContainer2) {
+    document.addEventListener('mousemove', (e) => {
+        const triangle = document.createElement('div');
+        triangle.className = 'trianglewhite5';
+        triangle.style.left = `${e.clientX}px`;
+        triangle.style.top = `${e.clientY}px`;
+        trailContainer2.appendChild(triangle);
+        setTimeout(() => triangle.style.opacity = '0', 100);
+        setTimeout(() => triangle.remove(), 1000);
+    });
+}
+
+function toggle(btn) {
+    const next = btn.nextElementSibling;
+    next.style.display = next.style.display === "block" ? "none" : "block";
+}
+
+/* ================= SCROLL SPY ================= */
+const sections = document.querySelectorAll(".section");
+const links = document.querySelectorAll(".sidebar a");
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            links.forEach(l => l.classList.remove("active"));
+            const active = document.querySelector(
+                `.sidebar a[href="#${entry.target.id}"]`
+            );
+            if (active) active.classList.add("active");
+        }
+    });
+}, { rootMargin: "-40% 0px -50% 0px" });
+
+sections.forEach(sec => observer.observe(sec));
+
+function togglePages() {
+    const dropdown = document.getElementById("pageDropdown");
+    const arrow = document.querySelector(".sidebar-header .arrow");
+
+    const isOpen = dropdown.style.display === "block";
+    dropdown.style.display = isOpen ? "none" : "block";
+    arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+}
+
+</script>
+
+</body>
+</html>
