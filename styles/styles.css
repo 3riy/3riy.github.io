@@ -3,13 +3,21 @@
             scroll-behavior: smooth;
             cursor: none; 
         }
-        body {
-            cursor: none;
-            /* Prevents scrollbar flash from cursor trail at edge of screen */
-            overflow-x: hidden; 
-            margin: 0;
-            background-color: #000;
-        }
+body {
+    cursor: none; /* hide default cursor */
+    overflow-x: hidden; /* prevent horizontal scrollbar from cursor trail */
+    margin: 0;
+
+    /* Background image */
+    background-image: url('starrysky.png');
+    background-size: cover;      /* makes the image cover the viewport */
+    background-position: center; /* centers the image */
+    background-repeat: no-repeat;/* prevent tiling */
+    background-attachment: fixed; /* optional: makes background stay while scrolling */
+    
+    /* Optional: fallback color */
+    background-color: black;
+}
 
         /* --- MENU ACTIVE STATE & SCROLL OFFSET --- */
         .menu a.active {
