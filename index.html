@@ -22,31 +22,16 @@
 .projects-bg-wrapper {
     position: relative;
     overflow: hidden;
-}
 
-.projects-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    /* start black and fade to sky image with gradient overlay */
-    background: linear-gradient(to bottom, black 0%, black 20%, rgba(255,255,255,0) 25%), 
-                url('styles/sky1.png') center center / cover no-repeat;
+    /* Background: fade in from black, sky image, fade out to black */
+    background: 
+        linear-gradient(to bottom, black 0%, rgba(0,0,0,0) 10%), /* fade in from top */
+        url('styles/sky1.png') center center / cover no-repeat,   /* sky image */
+        linear-gradient(to bottom, rgba(0,0,0,0) 90%, black 100%); /* fade out at bottom */
     
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    z-index: -1;
+    background-blend-mode: overlay; /* blend the gradients with the image */
 }
 
-.projects-bg-wrapper.in-view .projects-bg {
-    opacity: 1;
-}
-
-.projects-bg-wrapper.out-view .projects-bg {
-    opacity: 0;
-}
 </style>
 
 <body>
@@ -593,32 +578,6 @@
 
     // Init
     setGlobalCounts();
-
-function handleProjectsBgFade() {
-    const wrapper = document.querySelector('.projects-bg-wrapper');
-    const section = document.getElementById('projects');
-    const scrollTop = window.scrollY;
-    const viewportHeight = window.innerHeight;
-
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
-
-    // Fade in when entering section
-    if (scrollTop + viewportHeight > sectionTop + 100 && scrollTop < sectionTop + sectionHeight - 100) {
-        wrapper.classList.add('in-view');
-        wrapper.classList.remove('out-view');
-    }
-
-    // Fade out at end of section
-    if (scrollTop >= sectionTop + sectionHeight - viewportHeight / 2) {
-        wrapper.classList.remove('in-view');
-        wrapper.classList.add('out-view');
-    }
-}
-
-window.addEventListener('scroll', handleProjectsBgFade);
-window.addEventListener('load', handleProjectsBgFade);
-
 </script>
 
 </body>
