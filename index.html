@@ -18,6 +18,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Candal&display=swap" rel="stylesheet">
 </head>
 
+<style>
+.projects-bg-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.projects-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* start black and fade to sky image with gradient overlay */
+    background: linear-gradient(to bottom, black 0%, black 20%, rgba(255,255,255,0) 25%), 
+                url('../styles/sky1.png') center center / cover no-repeat;
+    
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: -1;
+}
+
+.projects-bg-wrapper.in-view .projects-bg {
+    opacity: 1;
+}
+
+.projects-bg-wrapper.out-view .projects-bg {
+    opacity: 0;
+}
+</style>
+
 <body>
     <div id="static-cursor"></div>
     <div id="cursor-trail-container2"></div>
@@ -79,7 +110,11 @@
     <br><br>
 
 
-    <div id="projects"class="projects-bg-wrapper">
+<!-- PROJECTS SECTION WITH BACKGROUND FADE -->
+<div class="projects-bg-wrapper">
+    <div class="projects-bg"></div> <!-- background layer -->
+    
+    <div id="projects">
         <h1 id="typewriter"></h1>
 
         <div class="project-grid">
@@ -109,16 +144,8 @@
                 </div>
 
                 <p>Real-time road incident and fire detection + SMS alert notification system developed using computer vision models, T5 string generation, and Twilio SMS API.</p>
-
-                <p><b>Libraries used:</b><br>
-                    - <b>Flask</b>, <b>Gunicorn</b>: Backend routing + production server<br>
-                    - <b>OpenCV</b>, <b>YOLOv8</b>: Frame processing + incident detection<br>
-                    - <b>PyTorch</b>, <b>Transformers</b>, <b>scikit-learn</b>: AI inference + clustering logic<br>
-                    - <b>MongoDB (pymongo)</b>: Incident logs + alert database<br>
-                    - <b>Twilio API</b>: Automated SMS alert notifications
-                </p>
             </div>
-            
+
             <div class="project-card">
                 <img src="img/rrrrr.png" alt="Crowd and Cluster Detection/Heatmap System">
                 <h3>Crowd and Cluster Detection + Heatmap System</h3>
@@ -133,34 +160,12 @@
                 </div>
 
                 <p>Crowd monitoring and cluster detection system developed using Python & OpenCV.</p>
-
-                <p><b>Libraries used:</b><br>
-                    - <b>cv2</b>: OpenCV library for image processing and computer vision<br>
-                    - <b>numpy</b>: For array/matrix operations<br>
-                    - <b>DBSCAN</b>: Density-based clustering algorithm from scikit-learn
-                </p>
             </div>
 
         </div>
-
-        <div class="project-grid">
-            <div class="project-card">
-                <img src="img/emeraldbeach_night.png" alt="sots">
-                <h3>Shadows On The Sands 
-                    <span style="font-size: 25px; font-weight: 400; font-family: 'Titillium Web', sans-serif; color: white;"><i>Game</i></span>
-                </h3>
-
-                <div class="project-links">
-                    <a href="https://rii2.itch.io/shadows-on-the-sands" class="icon-btn" target="_blank" style="display:flex; align-items:center; gap:8px; font-size:18px;">
-                        <i class="fab fa-itch-io"></i>
-                        <span style="font-family:'Titillium Web', sans-serif; font-size:17px;">itch.io</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <br>
-
     </div>
+</div>
+
 
 <!-- LEARN SECTION -->
 <div id="learn">
@@ -588,6 +593,32 @@
 
     // Init
     setGlobalCounts();
+
+function handleProjectsBgFade() {
+    const wrapper = document.querySelector('.projects-bg-wrapper');
+    const section = document.getElementById('projects');
+    const scrollTop = window.scrollY;
+    const viewportHeight = window.innerHeight;
+
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+
+    // Fade in when entering section
+    if (scrollTop + viewportHeight > sectionTop + 100 && scrollTop < sectionTop + sectionHeight - 100) {
+        wrapper.classList.add('in-view');
+        wrapper.classList.remove('out-view');
+    }
+
+    // Fade out at end of section
+    if (scrollTop >= sectionTop + sectionHeight - viewportHeight / 2) {
+        wrapper.classList.remove('in-view');
+        wrapper.classList.add('out-view');
+    }
+}
+
+window.addEventListener('scroll', handleProjectsBgFade);
+window.addEventListener('load', handleProjectsBgFade);
+
 </script>
 
 </body>
