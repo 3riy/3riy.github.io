@@ -25,28 +25,23 @@
 }
 
 /* Layer the background using a pseudo-element for smooth fade */
-.projects-bg-wrapper::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* allow clicks through it */
+.projects-bg-wrapper {
+    position: relative;
+    overflow: hidden;
 
-    /* Background image with top and bottom fade using gradient mask */
-    background: url('styles/sky1.png') center center / cover no-repeat;
-    
-    /* Create fade in/out using a mask */
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1) 8%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1) 8%, rgba(0,0,0,1) 85%, rgba(0,0,0,0));
-    mask-repeat: no-repeat;
-    mask-size: cover;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: cover;
+    /* Extend the wrapper height at top and bottom */
+    padding-top: 20px;   /* extra space above content */
+    padding-bottom: 20px; /* extra space below content */
 
-    z-index: -1; /* behind content */
+    /* Background layers: top fade, sky image, bottom fade */
+    background: 
+        linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 15%), /* fade in from top */
+        url('styles/sky1.png') center center / cover no-repeat,           /* sky image */
+        linear-gradient(to bottom, rgba(0,0,0,0) 85%, rgba(0,0,0,1) 100%); /* fade out at bottom */
+
+    background-blend-mode: overlay; /* blend gradients with image */
 }
+
 </style>
 
 <body>
