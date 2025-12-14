@@ -761,6 +761,9 @@ p {
   font-family: 'Titillium Web', sans-serif;
   color: white;
 }
+.repo-card img {
+        width: 100%; height: auto;
+}
 
     .folder-list ul {
       list-style: none;
