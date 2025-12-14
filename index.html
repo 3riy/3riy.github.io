@@ -91,7 +91,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             margin: 45px;
-            gap: 20px;
+            gap: 30px;
         }
         .project-card {
             background-color: #111;
@@ -129,7 +129,7 @@
             transition: color 0.3s ease;
         }
         .project-card:hover h3 {
-            color: #f5f5dc;
+            color: white;
         }
         .project-card p {
             margin: 0 1rem 1.5rem;
@@ -166,8 +166,8 @@
         }
         .project-btn:hover,
         .icon-btn:hover {
-            color: #f5f5dc;
-            border: 1px solid #f5f5dc;
+            color: white;
+            border: 1px solid white;
         }
 
         /* Typing cursor */
@@ -246,8 +246,8 @@
                 transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.6)) rotate(var(--r)) scale(1.1);
             }
         }
-          
-        /* --- LAYOUT CSS --- */
+
+        /* --- REPO GRID CSS --- */
         .repo-grid {
             display: grid !important;
             grid-template-columns: repeat(3, 1fr);
@@ -289,6 +289,9 @@
             margin-top: 15px !important;
             margin-bottom: 30px !important;
         }
+        .repo-card h3:hover {
+            color: white;
+        }
         .folder-list ul li {
             margin-bottom: 20px;
         }
@@ -304,6 +307,118 @@
             margin-top: 5px !important;
             margin-bottom: 5px !important;
         }
+
+/* BLOG LAYOUT */
+.blog-layout {
+    display: flex;
+    gap: 40px;
+    padding: 40px 60px;
+}
+
+/* SIDEBAR */
+.blog-sidebar {
+    width: 220px;
+    border-right: 1px solid #333;
+    padding-right: 20px;
+}
+
+.blog-sidebar h3 {
+    font-family: "Candal", sans-serif;
+    color: #fc7c7c;
+    margin-bottom: 15px;
+}
+
+.tag-filters {
+    list-style: none;
+    padding: 0;
+}
+
+.tag-filters li {
+    cursor: pointer;
+    margin-bottom: 12px;
+    font-family: 'Titillium Web', sans-serif;
+    color: #aaa;
+    transition: 0.3s ease;
+}
+
+.tag-filters li:hover,
+.tag-filters li.active {
+    color: #f5f5dc;
+}
+
+/* ARTICLE GRID */
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    flex: 1;
+}
+/* ARTICLE CARD */
+.article-card {
+    background-color: #111;
+    padding: 15px;
+    box-shadow: 0 6px 12px white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px white;
+}
+.article-card img {
+    width: 100%;
+    display: block; /* SAME behavior as project cards */
+}
+.article-card h3 {
+    margin: 1rem;
+    font-family: "Candal", sans-serif;
+    font-size: 24px;
+    color: #fc7c7c;
+    transition: color 0.3s ease;
+}
+.article-card:hover h3 {
+    color: white;
+}
+
+.article-card p {
+    margin: 0 1rem 1rem;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 18px;
+    color: white;
+}
+/* TAGS */
+.article-tags {
+    margin: 0 1rem;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.article-tags span {
+    font-size: 14px;
+    color: #fc7c7c;
+    border: 1px solid #fc7c7c;
+    padding: 2px 10px;
+    border-radius: 999px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .blog-layout {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .blog-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #333;
+        padding-bottom: 20px;
+    }
+
+    .article-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
         .topbar {
             position: fixed;
@@ -356,7 +471,7 @@
         <div class="menu">
             <a href="#about" class="menu-link active">About</a><span style="color: red">|</span>
             <a href="#projects" class="menu-link">Projects</a><span style="color: red">|</span>
-            <a href="#learn" class="menu-link">Learn</a>
+            <a href="#blog" class="menu-link">Blog</a>
         </div>
           
         <div class="social-icons">
@@ -393,8 +508,8 @@
 
     <br><br>
 
-    <div class="projects-bg-wrapper">
-        <div id="projects"></div>
+
+    <div id="projects"class="projects-bg-wrapper">
         <h1 id="typewriter"></h1>
 
         <div class="project-grid">
@@ -473,10 +588,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div id="learn"></div>
-    <h1 id="typewriter-languages"></h1>
+        <br>
+
+    <h1>Languages</h1>
 
     <div class="repo-grid">
         <div class="repo-card">
@@ -552,14 +666,144 @@
         </div>
 
     </div>
+    </div>
+
+    <br><br>
+    
+<!-- BLOG SECTION -->
+<div id="blog"></div>
+<h1 id="typewriter-blog"></h1>
+
+<div class="blog-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="blog-sidebar">
+        <h3>Tags</h3>
+        <ul class="tag-filters">
+            <li class="clear-filters">Clear Filters</li>
+            <li data-tag="all" class="active">All</li>
+            <li data-tag="programming-languages">Programming Languages</li>
+            <li data-tag="python">Python</li>
+            <li data-tag="c">C</li>
+            <li data-tag="bash">Bash</li>
+        </ul>
+    </aside>
+
+    <!-- ARTICLES -->
+    <div class="article-grid">
+
+        <!-- C ARTICLE -->
+        <div class="article-card" data-tags="programming-languages c">
+            <a href="https://github.com/rh3nium/C" target="_blank">
+                <h3>C Basics — Programs and Examples</h3>
+                <img src="img/C Basics.png" alt="C basics">
+                <p>
+                    C is a powerful, general-purpose programming language that provides a foundation
+                    for many modern languages. Known for its efficiency and control, C is commonly
+                    used in system programming, embedded development, operating systems, and video games.
+                </p>
+            </a>
+            <div class="article-tags">
+                <span>#programming-languages</span>
+                <span>#c</span>
+            </div>
+        </div>
+
+        <!-- PYTHON ARTICLE -->
+        <div class="article-card" data-tags="programming-languages python">
+            <a href="https://github.com/rh3nium/Python" target="_blank">
+                <h3>Python Basics — Programs and Examples</h3>
+                <img src="img/Python Basics.png" alt="Python basics">
+                <p>
+                    Python is a powerful, versatile, high-level, interpreted, object-oriented programming
+                    language, driving innovation across data science, machine learning/deep learning,
+                    web development, and automation.
+                </p>
+            </a>
+            <div class="article-tags">
+                <span>#programming-languages</span>
+                <span>#python</span>
+            </div>
+        </div>
+
+        <!-- BASH ARTICLE -->
+        <div class="article-card" data-tags="programming-languages bash">
+            <a href="https://github.com/rh3nium/Bash" target="_blank">
+                <h3>Bash Basics — Programs and Automation</h3>
+                <img src="img/Bash Basics.png" alt="Bash basics">
+                <p>
+                    Bash (short for Bourne Again Shell) is a command-line language and scripting shell
+                    used primarily on Unix and Linux systems to automate tasks. It serves both as an
+                    interactive shell and as a scripting language for repetitive or complex operations.
+                </p>
+            </a>
+            <div class="article-tags">
+                <span>#programming-languages</span>
+                <span>#bash</span>
+            </div>
+        </div>
+
+
+        <div class="article-card" data-tags="programming-languages c">
+            <a href="https://github.com/rh3nium/C" target="_blank">
+                <h3>C Basics — Programs and Examples</h3>
+                <img src="img/C Basics.png" alt="C basics">
+                <p>
+                    C is a powerful, general-purpose programming language that provides a foundation
+                    for many modern languages. Known for its efficiency and control, C is commonly
+                    used in system programming, embedded development, operating systems, and video games.
+                </p>
+            </a>
+            <div class="article-tags">
+                <span>#programming-languages</span>
+                <span>#c</span>
+            </div>
+        </div>
+
+        <div class="article-card" data-tags="programming-languages python">
+            <a href="https://github.com/rh3nium/Python" target="_blank">
+                <h3>Python Basics — Programs and Examples</h3>
+                <img src="img/Python Basics.png" alt="Python basics">
+                <p>
+                    Python is a powerful, versatile, high-level, interpreted, object-oriented programming
+                    language, driving innovation across data science, machine learning/deep learning,
+                    web development, and automation.
+                </p>
+            </a>
+            <div class="article-tags">
+                <span>#programming-languages</span>
+                <span>#python</span>
+            </div>
+        </div>
+
+        <div class="article-card" data-tags="programming-languages bash">
+            <a href="https://github.com/rh3nium/Bash" target="_blank">
+                <h3>Bash Basics — Programs and Automation</h3>
+                <img src="img/Bash Basics.png" alt="Bash basics">
+                <p>
+                    Bash (short for Bourne Again Shell) is a command-line language and scripting shell
+                    used primarily on Unix and Linux systems to automate tasks. It serves both as an
+                    interactive shell and as a scripting language for repetitive or complex operations.
+                </p>
+            </a>
+            <div class="article-tags">
+                <span>#programming-languages</span>
+                <span>#bash</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
     <br><br>
       
-    <script>
+
+<script>
         // --- SCROLL SPY & MENU LOGIC ---
         document.addEventListener("DOMContentLoaded", () => {
             const menuLinks = document.querySelectorAll('.menu-link');
             // Ensure these IDs match your HTML exactly
-            const sections = document.querySelectorAll('#about, #projects, #learn');
+            const sections = document.querySelectorAll('#about, #projects, #blog');
 
             function changeLinkState() {
                 let current = "";
@@ -595,14 +839,17 @@
             // Run once on load to highlight the correct link immediately
             changeLinkState();
         });
+</script>
 
+
+    <script>
         // --- TYPEWRITERS & EFFECTS ---
-        const textLang = "Beginner-Friendly Language Repositories Covering the Basics";
+        const textLang = "Blog";
         const speedLang = 55;
         let indexLang = 0;
 
         function typeEffectLang() {
-            const heading = document.getElementById("typewriter-languages");
+            const heading = document.getElementById("typewriter-blog");
             if(heading) {
                 heading.innerHTML = textLang.substring(0, indexLang) + '<span class="red-cursor"></span>';
                 if (indexLang < textLang.length) {
@@ -709,6 +956,87 @@
         spawnTriangles('canvaswhite', 'trianglewhite', 'white');
 
     </script>
+
+<script>
+// --- Article Tag Filters --- //
+    const filters = document.querySelectorAll(".tag-filters li[data-tag]");
+    const clearBtn = document.querySelector(".clear-filters");
+    const articles = document.querySelectorAll(".article-card");
+
+    // Store original labels
+    filters.forEach(filter => {
+        filter.dataset.label = filter.textContent.trim();
+    });
+
+    // --- GLOBAL STATIC COUNTS ---
+    function setGlobalCounts() {
+        filters.forEach(filter => {
+            const tag = filter.dataset.tag;
+            let count = 0;
+
+            articles.forEach(article => {
+                const articleTags = article.dataset.tags.split(" ");
+                if (tag === "all" || articleTags.includes(tag)) {
+                    count++;
+                }
+            });
+
+            filter.textContent = `${filter.dataset.label} (${count})`;
+        });
+    }
+
+    function getActiveTags() {
+        return Array.from(filters)
+            .filter(f => f.classList.contains("active") && f.dataset.tag !== "all")
+            .map(f => f.dataset.tag);
+    }
+
+    function applyFilters() {
+        const activeTags = getActiveTags();
+
+        articles.forEach(article => {
+            const articleTags = article.dataset.tags.split(" ");
+            const show =
+                activeTags.length === 0 ||
+                activeTags.some(tag => articleTags.includes(tag));
+
+            article.style.display = show ? "block" : "none";
+        });
+    }
+
+    function clearFilters() {
+        filters.forEach(f => f.classList.remove("active"));
+        document.querySelector('[data-tag="all"]').classList.add("active");
+        applyFilters();
+    }
+
+    filters.forEach(filter => {
+        filter.addEventListener("click", () => {
+            const tag = filter.dataset.tag;
+
+            if (tag === "all") {
+                filters.forEach(f => f.classList.remove("active"));
+                filter.classList.add("active");
+            } else {
+                filter.classList.toggle("active");
+
+                const allFilter = document.querySelector('[data-tag="all"]');
+                allFilter.classList.remove("active");
+
+                if (getActiveTags().length === 0) {
+                    allFilter.classList.add("active");
+                }
+            }
+
+            applyFilters();
+        });
+    });
+
+    clearBtn.addEventListener("click", clearFilters);
+
+    // Init
+    setGlobalCounts();
+</script>
 
 </body>
 </html>
