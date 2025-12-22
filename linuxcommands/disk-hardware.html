@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disk & Hardware - Linux Commands Guidebook | Riya halbhavi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="icon" href="../styles/rh.png" type="image/png">
+<link rel="stylesheet" href="../styles/styles.css">
+
+<style>
+html { scroll-behavior: smooth; cursor: none; }
+body {
+    margin: 0;
+    background: #000;
+    color: white;
+    font-family: 'Titillium Web', sans-serif;
+    overflow-x: hidden;
+}
+
+/* ================= TOPBAR (FIXED FLEXBOX SPACING) ================= */
+.topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    box-sizing: border-box;
+}
+.menu { display: flex; align-items: center; gap: 8px; }
+.menu a { color: white; text-decoration: none; margin: 0; transition: color 0.2s ease; }
+.menu a:hover { color: #fc7c7c; }
+
+/* ================= PAGE TITLE ================= */
+.page-title {
+    margin-top: 85px;
+    text-align: center;
+    font-family: 'Silkscreen', monospace;
+    font-size: 35px;
+    letter-spacing: 2px;
+}
+
+/* ================= LAYOUT ================= */
+.layout { display: flex; padding: 40px 60px; gap: 40px; }
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    position: fixed;
+    top: 260px;
+    left: 60px;
+    width: 280px;
+    border-right: 1px solid #333;
+    padding-right: 20px;
+}
+.sidebar h3 { color: #fc7c7c; font-family: 'Silkscreen', monospace; font-size: 35px; }
+.sidebar ul { font-size: 22px; list-style: none; padding: 0; }
+.sidebar li { margin-bottom: 12px; }
+.sidebar a { color: #aaa; text-decoration: none; }
+.sidebar a:hover { color: #fc7c7c; }
+.sidebar a.active { color: #fc7c7c; font-weight: bold; }
+
+/* ================= CONTENT ================= */
+.content { margin-left: 325px; flex: 1; }
+.section { margin-bottom: 80px; scroll-margin-top: 140px; }
+.section h2 { color: #fc7c7c; font-family: 'Titillium Web', sans-serif; font-size: 45px; }
+
+/* ================= COMMAND BLOCK ================= */
+.command { margin: 20px 0; }
+.command h4 { font-family: 'Overpass Mono', monospace; color: #f5f5dc; font-size: 22px; }
+.command p { margin: 4px 0 6px; color: #ccc; font-size: 20px; }
+pre {
+    background: #111;
+    padding: 12px;
+    border-left: 4px solid #fc7c7c;
+    overflow-x: auto;
+    font-family: 'Overpass Mono', monospace;
+    font-size: 18px;
+}
+
+/* ================= EXPAND ================= */
+.toggle-btn { cursor: pointer; color: #fc7c7c; font-family: 'Silkscreen', monospace; font-size: 22px; margin-top: 10px; display: inline-block;}
+.advanced { display: none; margin-top: 20px; border-top: 1px dashed #444; padding-top: 20px;}
+
+/* ================= PAGE DROPDOWN ================= */
+.sidebar-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.sidebar-header .arrow { color: white; font-size: 18px; transition: transform 0.2s ease; }
+.page-dropdown {
+    display: none;
+    background: white;
+    margin: 10px 0 18px;
+    border-radius: 4px;
+    max-height: 260px;
+    overflow-y: auto;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+.page-dropdown a { display: block; padding: 10px 14px; font-family: 'Titillium Web', sans-serif; color: black; text-decoration: none; font-size: 22px; }
+.page-dropdown a:hover { background: #e5e5e5; }
+.page-dropdown a.active-page { background: #e5e5e5; font-weight: bold; }
+
+/* ================= CURSOR TRAIL ================= */
+#cursor-trail-container2 { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000; }
+#static-cursor {
+    position: fixed; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red); pointer-events: none; z-index: 10001; top: -100px; left: -100px; transform: translate(-50%, -50%);
+}
+.trianglewhite5 {
+    position: absolute; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red); animation: pulse5 5s ease-in-out infinite; transition: opacity 0.3s ease; transform: translate(-50%, -50%);
+}
+@keyframes pulse5 { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
+
+@media (max-width: 900px) {
+    .sidebar { position: static; width: 100%; border-right: none; padding-right: 0; }
+    .content { margin-left: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="static-cursor"></div>
+<div id="cursor-trail-container2"></div>
+
+<div class="topbar">
+    <div class="header" style="display: flex; align-items: center;">
+        <a href="../index.html">
+            <img src="../styles/banner.png" height="80" style="display: block;">
+        </a>
+    </div>
+    <div class="menu">
+        <a href="../index.html#about">About</a><span style="color: red">|</span>
+        <a href="../index.html#projects">Projects</a><span style="color: red">|</span>
+        <a href="../index.html#learn">Learn</a><span style="color: red">|</span>
+        <a href="../index.html#blog" style="color: #fc7c7c">Blog</a>
+    </div>
+    <div class="social-icons">
+        <a href="https://github.com/3riy" target="_blank" class="fab fa-github" style="color: white; text-decoration: none;"></a>
+    </div>
+</div>
+
+<h1 class="page-title">Linux Commands Guidebook</h1>
+
+<div class="layout">
+
+<aside class="sidebar">
+<div class="sidebar-header" onclick="togglePages()">
+    <h3>Disk & Hardware</h3>
+    <span class="arrow">▼</span>
+</div>
+
+<div class="page-dropdown" id="pageDropdown">
+    <a href="introduction.html">INTRODUCTION</a>
+    <a href="gnu-coreutils.html">1. GNU Coreutils</a>
+    <a href="text-processing.html">2. Text Processing</a>
+    <a href="processes-and-system.html">3. Processes & System</a>
+    <a href="disk-hardware.html" class="active-page">4. Disk & Hardware</a>
+    <a href="networking.html">5. Networking</a>
+    <a href="archives.html">6. Archives</a>
+    <a href="shell-and-env.html">7. Shell & Env</a>
+    <a href="users-and-sessions.html">8. Users & Sessions</a>
+</div>
+
+<ul>
+    <li><a href="#disk">Disk Usage</a></li>
+    <li><a href="#partition">Partitions</a></li>
+    <li><a href="#hardware">Hardware Info</a></li>
+</ul>
+</aside>
+
+<main class="content">
+
+<section id="disk" class="section">
+<h2>Disk Usage & Filesystems</h2>
+
+<div class="command">
+<h4>1. df</h4>
+<p>Displays the amount of disk space available on filesystems.</p>
+<pre><code>df -h</code></pre>
+</div>
+
+<div class="command">
+<h4>2. du</h4>
+<p>Estimates file space usage in a directory.</p>
+<pre><code>du -sh /var/log</code></pre>
+</div>
+
+<div class="command">
+<h4>3. mount</h4>
+<p>Mounts a filesystem so it can be accessed by the system.</p>
+<pre><code>sudo mount /dev/sdb1 /mnt/usb</code></pre>
+</div>
+
+<div class="command">
+<h4>4. umount</h4>
+<p>Unmounts a currently mounted filesystem.</p>
+<pre><code>sudo umount /mnt/usb</code></pre>
+</div>
+
+<div class="command">
+<h4>5. lsblk</h4>
+<p>Lists information about all available or the specified block devices (disks).</p>
+<pre><code>lsblk -f</code></pre>
+</div>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced Disk Tools</span>
+<div class="advanced">
+<div class="command">
+<h4>6. blkid</h4>
+<p>Locates/prints block device attributes like UUIDs and Labels.</p>
+<pre><code>sudo blkid</code></pre>
+</div>
+<div class="command">
+<h4>7. fsck</h4>
+<p>Checks and repairs a Linux filesystem. (Use with caution on unmounted disks).</p>
+<pre><code>sudo fsck /dev/sda1</code></pre>
+</div>
+<div class="command">
+<h4>8. sync</h4>
+<p>Flushes file system buffers to disk to prevent data loss.</p>
+<pre><code>sync</code></pre>
+</div>
+<div class="command">
+<h4>9. mkfs</h4>
+<p>Used to build a Linux filesystem on a device, usually a partition.</p>
+<pre><code>sudo mkfs.ext4 /dev/sdb1</code></pre>
+</div>
+</div>
+</section>
+
+<section id="partition" class="section">
+<h2>Partition Management</h2>
+
+<div class="command">
+<h4>1. fdisk</h4>
+<p>A dialog-driven program for creation and manipulation of partition tables.</p>
+<pre><code>sudo fdisk -l</code></pre>
+</div>
+
+<div class="command">
+<h4>2. parted</h4>
+<p>A partition manipulation program supporting many partition table formats (GPT/MBR).</p>
+<pre><code>sudo parted /dev/sda print</code></pre>
+</div>
+
+<div class="command">
+<h4>3. gdisk</h4>
+<p>An interactive text-mode program for manipulating GPT partitions.</p>
+<pre><code>sudo gdisk /dev/sda</code></pre>
+</div>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced Partitioning</span>
+<div class="advanced">
+<div class="command">
+<h4>4. pvdisplay / vgdisplay / lvdisplay</h4>
+<p>Shows information about Physical Volumes, Volume Groups, and Logical Volumes (LVM).</p>
+<pre><code>sudo lvdisplay</code></pre>
+</div>
+<div class="command">
+<h4>5. resize2fs</h4>
+<p>Resizes ext2/ext3/ext4 file systems after changing partition size.</p>
+<pre><code>sudo resize2fs /dev/vg0/lv_data</code></pre>
+</div>
+<div class="command">
+<h4>6. swapoff / swapon</h4>
+<p>Disables or enables devices and files for paging and swapping.</p>
+<pre><code>sudo swapon -s</code></pre>
+</div>
+</div>
+</section>
+
+<section id="hardware" class="section">
+<h2>Hardware Diagnostics</h2>
+
+
+
+<div class="command">
+<h4>1. lspci</h4>
+<p>Lists all PCI buses and devices in the system (e.g., GPU, Network cards).</p>
+<pre><code>lspci -v</code></pre>
+</div>
+
+<div class="command">
+<h4>2. lsusb</h4>
+<p>Lists USB buses and the devices connected to them.</p>
+<pre><code>lsusb -t</code></pre>
+</div>
+
+<div class="command">
+<h4>3. lshw</h4>
+<p>A detailed hardware lister that provides a summary of all hardware components.</p>
+<pre><code>sudo lshw -short</code></pre>
+</div>
+
+<div class="command">
+<h4>4. dmidecode</h4>
+<p>Retrieves hardware info (Serial numbers, BIOS versions) from the DMI table.</p>
+<pre><code>sudo dmidecode -t system</code></pre>
+</div>
+
+<div class="command">
+<h4>5. free</h4>
+<p>Displays the amount of free and used memory in the system.</p>
+<pre><code>free -h</code></pre>
+</div>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced Hardware Inspection</span>
+<div class="advanced">
+<div class="command">
+<h4>6. smartctl</h4>
+<p>Control and monitor self-monitoring, analysis, and reporting technology (SMART) on HDDs/SSDs.</p>
+<pre><code>sudo smartctl -a /dev/sda</code></pre>
+</div>
+<div class="command">
+<h4>7. sensors</h4>
+<p>Displays current readings of all sensor chips (Temperatures, Voltages, Fans).</p>
+<pre><code>sensors</code></pre>
+</div>
+<div class="command">
+<h4>8. hdparm</h4>
+<p>Get/set SATA/IDE device parameters; often used to test drive speed.</p>
+<pre><code>sudo hdparm -Tt /dev/sda</code></pre>
+</div>
+<div class="command">
+<h4>9. lsdev</h4>
+<p>Displays information about installed hardware including IRQ, DMA, and I/O ports.</p>
+<pre><code>lsdev</code></pre>
+</div>
+<div class="command">
+<h4>10. nvme</h4>
+<p>Utility for managing and querying NVMe SSDs (requires nvme-cli).</p>
+<pre><code>sudo nvme list</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+</div>
+
+<script>
+const staticCursor = document.getElementById('static-cursor');
+document.addEventListener('mousemove', (e) => {
+    staticCursor.style.left = `${e.clientX}px`;
+    staticCursor.style.top = `${e.clientY}px`;
+});
+
+const trailContainer2 = document.getElementById('cursor-trail-container2');
+if (trailContainer2) {
+    document.addEventListener('mousemove', (e) => {
+        const triangle = document.createElement('div');
+        triangle.className = 'trianglewhite5';
+        triangle.style.left = `${e.clientX}px`;
+        triangle.style.top = `${e.clientY}px`;
+        trailContainer2.appendChild(triangle);
+        setTimeout(() => triangle.style.opacity = '0', 100);
+        setTimeout(() => triangle.remove(), 1000);
+    });
+}
+
+function toggle(btn) {
+    const next = btn.nextElementSibling;
+    const isOpen = next.style.display === "block";
+    next.style.display = isOpen ? "none" : "block";
+    btn.innerHTML = isOpen ? "▼ " + btn.innerHTML.substring(2) : "▲ " + btn.innerHTML.substring(2);
+}
+
+const sections = document.querySelectorAll(".section");
+const links = document.querySelectorAll(".sidebar a");
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            links.forEach(l => l.classList.remove("active"));
+            const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
+            if (active) active.classList.add("active");
+        }
+    });
+}, { rootMargin: "-40% 0px -50% 0px" });
+
+sections.forEach(sec => observer.observe(sec));
+
+function togglePages() {
+    const dropdown = document.getElementById("pageDropdown");
+    const arrow = document.querySelector(".sidebar-header .arrow");
+    const isOpen = dropdown.style.display === "block";
+    dropdown.style.display = isOpen ? "none" : "block";
+    arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+}
+</script>
+</body>
+</html>
