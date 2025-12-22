@@ -147,7 +147,7 @@ pre {
     </div>
 </div>
 
-<h1 class="page-title">Linux Commands Guidebook</h1>
+<h2 class="page-title">Linux Commands Guidebook</h1>
 
 <div class="layout">
 
@@ -185,49 +185,49 @@ pre {
 <h4>1. df</h4>
 <p>Displays the amount of disk space available on filesystems.</p>
 <pre><code>df -h</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. du</h4>
 <p>Estimates file space usage in a directory.</p>
 <pre><code>du -sh /var/log</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. mount</h4>
 <p>Mounts a filesystem so it can be accessed by the system.</p>
 <pre><code>sudo mount /dev/sdb1 /mnt/usb</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>4. umount</h4>
 <p>Unmounts a currently mounted filesystem.</p>
 <pre><code>sudo umount /mnt/usb</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>5. lsblk</h4>
 <p>Lists information about all available or the specified block devices (disks).</p>
 <pre><code>lsblk -f</code></pre>
-</div>
+</div><br>
 
-<span class="toggle-btn" onclick="toggle(this)">▼ Advanced Disk Tools</span>
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
 <div class="advanced">
 <div class="command">
 <h4>6. blkid</h4>
 <p>Locates/prints block device attributes like UUIDs and Labels.</p>
 <pre><code>sudo blkid</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>7. fsck</h4>
 <p>Checks and repairs a Linux filesystem. (Use with caution on unmounted disks).</p>
 <pre><code>sudo fsck /dev/sda1</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>8. sync</h4>
 <p>Flushes file system buffers to disk to prevent data loss.</p>
 <pre><code>sync</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>9. mkfs</h4>
 <p>Used to build a Linux filesystem on a device, usually a partition.</p>
@@ -243,32 +243,32 @@ pre {
 <h4>1. fdisk</h4>
 <p>A dialog-driven program for creation and manipulation of partition tables.</p>
 <pre><code>sudo fdisk -l</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. parted</h4>
 <p>A partition manipulation program supporting many partition table formats (GPT/MBR).</p>
 <pre><code>sudo parted /dev/sda print</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. gdisk</h4>
 <p>An interactive text-mode program for manipulating GPT partitions.</p>
 <pre><code>sudo gdisk /dev/sda</code></pre>
-</div>
+</div><br>
 
-<span class="toggle-btn" onclick="toggle(this)">▼ Advanced Partitioning</span>
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
 <div class="advanced">
 <div class="command">
 <h4>4. pvdisplay / vgdisplay / lvdisplay</h4>
 <p>Shows information about Physical Volumes, Volume Groups, and Logical Volumes (LVM).</p>
 <pre><code>sudo lvdisplay</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>5. resize2fs</h4>
 <p>Resizes ext2/ext3/ext4 file systems after changing partition size.</p>
 <pre><code>sudo resize2fs /dev/vg0/lv_data</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>6. swapoff / swapon</h4>
 <p>Disables or enables devices and files for paging and swapping.</p>
@@ -280,37 +280,35 @@ pre {
 <section id="hardware" class="section">
 <h2>Hardware Diagnostics</h2>
 
-
-
 <div class="command">
 <h4>1. lspci</h4>
 <p>Lists all PCI buses and devices in the system (e.g., GPU, Network cards).</p>
 <pre><code>lspci -v</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. lsusb</h4>
 <p>Lists USB buses and the devices connected to them.</p>
 <pre><code>lsusb -t</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. lshw</h4>
 <p>A detailed hardware lister that provides a summary of all hardware components.</p>
 <pre><code>sudo lshw -short</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>4. dmidecode</h4>
 <p>Retrieves hardware info (Serial numbers, BIOS versions) from the DMI table.</p>
 <pre><code>sudo dmidecode -t system</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>5. free</h4>
 <p>Displays the amount of free and used memory in the system.</p>
 <pre><code>free -h</code></pre>
-</div>
+</div><br>
 
 <span class="toggle-btn" onclick="toggle(this)">▼ Advanced Hardware Inspection</span>
 <div class="advanced">
@@ -318,22 +316,22 @@ pre {
 <h4>6. smartctl</h4>
 <p>Control and monitor self-monitoring, analysis, and reporting technology (SMART) on HDDs/SSDs.</p>
 <pre><code>sudo smartctl -a /dev/sda</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>7. sensors</h4>
 <p>Displays current readings of all sensor chips (Temperatures, Voltages, Fans).</p>
 <pre><code>sensors</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>8. hdparm</h4>
 <p>Get/set SATA/IDE device parameters; often used to test drive speed.</p>
 <pre><code>sudo hdparm -Tt /dev/sda</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>9. lsdev</h4>
 <p>Displays information about installed hardware including IRQ, DMA, and I/O ports.</p>
 <pre><code>lsdev</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>10. nvme</h4>
 <p>Utility for managing and querying NVMe SSDs (requires nvme-cli).</p>
