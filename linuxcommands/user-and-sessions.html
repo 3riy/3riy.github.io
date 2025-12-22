@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Users & Sessions - Linux Commands Guidebook | Riya halbhavi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="icon" href="../styles/rh.png" type="image/png">
+<link rel="stylesheet" href="../styles/styles.css">
+
+<style>
+html { scroll-behavior: smooth; cursor: none; }
+body {
+    margin: 0;
+    background: #000;
+    color: white;
+    font-family: 'Titillium Web', sans-serif;
+    overflow-x: hidden;
+}
+
+/* ================= TOPBAR ================= */
+.topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    box-sizing: border-box;
+}
+.menu { display: flex; align-items: center; gap: 8px; }
+.menu a { color: white; text-decoration: none; margin: 0; transition: color 0.2s ease; }
+.menu a:hover { color: #fc7c7c; }
+
+/* ================= PAGE TITLE ================= */
+.page-title {
+    margin-top: 85px;
+    text-align: center;
+    font-family: 'Silkscreen', monospace;
+    font-size: 35px;
+    letter-spacing: 2px;
+}
+
+/* ================= LAYOUT ================= */
+.layout { display: flex; padding: 40px 60px; gap: 40px; }
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    position: fixed;
+    top: 260px;
+    left: 60px;
+    width: 280px;
+    border-right: 1px solid #333;
+    padding-right: 20px;
+}
+.sidebar h3 { color: #fc7c7c; font-family: 'Silkscreen', monospace; font-size: 35px; }
+.sidebar ul { font-size: 22px; list-style: none; padding: 0; }
+.sidebar li { margin-bottom: 12px; }
+.sidebar a { color: #aaa; text-decoration: none; }
+.sidebar a:hover { color: #fc7c7c; }
+.sidebar a.active { color: #fc7c7c; font-weight: bold; }
+
+/* ================= CONTENT ================= */
+.content { margin-left: 325px; flex: 1; }
+.section { margin-bottom: 80px; scroll-margin-top: 140px; }
+.section h2 { color: #fc7c7c; font-family: 'Titillium Web', sans-serif; font-size: 45px; }
+
+/* ================= COMMAND BLOCK ================= */
+.command { margin: 20px 0; }
+.command h4 { font-family: 'Overpass Mono', monospace; color: #f5f5dc; font-size: 22px; }
+.command p { margin: 4px 0 6px; color: #ccc; font-size: 22px; }
+pre {
+    background: #111;
+    padding: 12px;
+    border-left: 4px solid #fc7c7c;
+    overflow-x: auto;
+    font-family: 'Overpass Mono', monospace;
+    font-size: 20px;
+}
+
+/* ================= EXPAND ================= */
+.toggle-btn { cursor: pointer; color: #fc7c7c; font-family: 'Silkscreen', monospace; font-size: 22px; margin-top: 10px; display: inline-block;}
+.advanced { display: none; margin-top: 20px; border-top: 1px dashed #444; padding-top: 20px;}
+
+/* ================= PAGE DROPDOWN ================= */
+.sidebar-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.sidebar-header .arrow { color: white; font-size: 18px; transition: transform 0.2s ease; }
+.page-dropdown {
+    display: none;
+    background: white;
+    margin: 10px 0 18px;
+    border-radius: 4px;
+    max-height: 260px;
+    overflow-y: auto;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+.page-dropdown a { display: block; padding: 10px 14px; font-family: 'Titillium Web', sans-serif; color: black; text-decoration: none; font-size: 22px; }
+.page-dropdown a:hover { background: #e5e5e5; }
+.page-dropdown a.active-page { background: #e5e5e5; font-weight: bold; }
+
+/* ================= CURSOR TRAIL ================= */
+#cursor-trail-container2 { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000; }
+#static-cursor {
+    position: fixed; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red); pointer-events: none; z-index: 10001; top: -100px; left: -100px; transform: translate(-50%, -50%);
+}
+.trianglewhite5 {
+    position: absolute; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red); animation: pulse5 5s ease-in-out infinite; transition: opacity 0.3s ease; transform: translate(-50%, -50%);
+}
+@keyframes pulse5 { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
+
+@media (max-width: 900px) {
+    .sidebar { position: static; width: 100%; border-right: none; padding-right: 0; }
+    .content { margin-left: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="static-cursor"></div>
+<div id="cursor-trail-container2"></div>
+
+<div class="topbar">
+    <div class="header" style="display: flex; align-items: center;">
+        <a href="../index.html">
+            <img src="../styles/banner.png" height="80" style="display: block;">
+        </a>
+    </div>
+    <div class="menu">
+        <a href="../index.html#about">About</a><span style="color: red">|</span>
+        <a href="../index.html#projects">Projects</a><span style="color: red">|</span>
+        <a href="../index.html#learn">Learn</a><span style="color: red">|</span>
+        <a href="../index.html#blog" style="color: #fc7c7c">Blog</a>
+    </div>
+    <div class="social-icons">
+        <a href="https://github.com/3riy" target="_blank" class="fab fa-github" style="color: white; text-decoration: none;"></a>
+    </div>
+</div>
+
+<h2 class="page-title">Linux Commands Guidebook</h1>
+
+<div class="layout">
+
+<aside class="sidebar">
+<div class="sidebar-header" onclick="togglePages()">
+    <h3>Users</h3>
+    <span class="arrow">▼</span>
+</div>
+
+<div class="page-dropdown" id="pageDropdown">
+    <a href="introduction.html">INTRODUCTION</a>
+    <a href="gnu-coreutils.html">1. GNU Coreutils</a>
+    <a href="text-processing.html">2. Text Processing</a>
+    <a href="processes-and-system.html">3. Processes and System</a>
+    <a href="disk-hardware.html">4. Disk and Hardware</a>
+    <a href="networking.html">5. Networking</a>
+    <a href="archives.html">6. Archives</a>
+    <a href="shell-and-env.html">7. Shell and Env</a>
+    <a href="users-and-sessions.html" class="active-page">8. Users and Sessions</a>
+</div>
+
+<ul>
+    <li><a href="#identity">Identity</a></li>
+    <li><a href="#management">User and Group Management</a></li>
+    <li><a href="#permissions">Permissions and Ownership</a></li>
+</ul>
+</aside>
+
+<main class="content">
+
+<section id="identity" class="section">
+<h2>Identity</h2>
+
+<div class="command">
+<h4>1. whoami</h4>
+<p>Displays the username of the current effective user.</p>
+<pre><code>whoami</code></pre>
+</div><br>
+
+<div class="command">
+<h4>2. id</h4>
+<p>Prints real and effective user and group IDs.</p>
+<pre><code>id username</code></pre>
+</div><br>
+
+<div class="command">
+<h4>3. w</h4>
+<p>Shows who is logged on and what they are doing.</p>
+<pre><code>w</code></pre>
+</div><br>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Session Tracking</span>
+<div class="advanced">
+<div class="command">
+<h4>4. last</h4>
+<p>Shows a listing of last logged in users.</p>
+<pre><code>last -n 10</code></pre>
+</div><br>
+<div class="command">
+<h4>5. who</h4>
+<p>Displays a list of users currently logged into the system.</p>
+<pre><code>who -u</code></pre>
+</div>
+</div>
+</section>
+
+<section id="management" class="section">
+<h2>User and Group Management</h2>
+
+<div class="command">
+<h4>1. sudo</h4>
+<p>Execute a command as another user, typically the superuser (root).</p>
+<pre><code>sudo apt update</code></pre>
+</div><br>
+
+<div class="command">
+<h4>2. useradd / userdel</h4>
+<p>Create a new user or delete an existing user account.</p>
+<pre><code>sudo useradd -m newuser
+sudo userdel -r olduser</code></pre>
+</div><br>
+
+<div class="command">
+<h4>3. passwd</h4>
+<p>Change a user's password.</p>
+<pre><code>sudo passwd username</code></pre>
+</div><br>
+
+<div class="command">
+<h4>4. groupadd</h4>
+<p>Create a new group.</p>
+<pre><code>sudo groupadd developers</code></pre>
+</div><br>
+
+<div class="command">
+<h4>5. usermod</h4>
+<p>Modify a user account (e.g., adding a user to a group).</p>
+<pre><code>sudo usermod -aG sudo username</code></pre>
+</div>
+
+</section>
+
+<section id="permissions" class="section">
+<h2>Permissions and Ownership</h2>
+
+<div class="command">
+<h4>1. chmod</h4>
+<p>Changes the file mode bits (permissions).</p>
+<pre><code>chmod 755 script.sh
+chmod +x script.sh</code></pre>
+</div><br>
+
+<div class="command">
+<h4>2. chown</h4>
+<p>Changes the owner and/or group of a file.</p>
+<pre><code>sudo chown user:group file.txt</code></pre>
+</div><br>
+
+<div class="command">
+<h4>3. su</h4>
+<p>Switch user to become another user (or root).</p>
+<pre><code>su - username</code></pre>
+</div><br>
+
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
+<div class="advanced">
+<div class="command">
+<h4>4. umask</h4>
+<p>Sets the default file creation permissions for the current shell.</p>
+<pre><code>umask 022</code></pre>
+</div><br>
+<div class="command">
+<h4>5. visudo</h4>
+<p>Safely edits the sudoers file to manage administrative privileges.</p>
+<pre><code>sudo visudo</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+</div>
+
+<script>
+const staticCursor = document.getElementById('static-cursor');
+document.addEventListener('mousemove', (e) => {
+    staticCursor.style.left = `${e.clientX}px`;
+    staticCursor.style.top = `${e.clientY}px`;
+});
+
+const trailContainer2 = document.getElementById('cursor-trail-container2');
+if (trailContainer2) {
+    document.addEventListener('mousemove', (e) => {
+        const triangle = document.createElement('div');
+        triangle.className = 'trianglewhite5';
+        triangle.style.left = `${e.clientX}px`;
+        triangle.style.top = `${e.clientY}px`;
+        trailContainer2.appendChild(triangle);
+        setTimeout(() => triangle.style.opacity = '0', 100);
+        setTimeout(() => triangle.remove(), 1000);
+    });
+}
+
+function toggle(btn) {
+    const next = btn.nextElementSibling;
+    const isOpen = next.style.display === "block";
+    next.style.display = isOpen ? "none" : "block";
+    btn.innerHTML = isOpen ? "▼ " + btn.innerHTML.substring(2) : "▲ " + btn.innerHTML.substring(2);
+}
+
+const sections = document.querySelectorAll(".section");
+const links = document.querySelectorAll(".sidebar a");
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            links.forEach(l => l.classList.remove("active"));
+            const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
+            if (active) active.classList.add("active");
+        }
+    });
+}, { rootMargin: "-40% 0px -50% 0px" });
+
+sections.forEach(sec => observer.observe(sec));
+
+function togglePages() {
+    const dropdown = document.getElementById("pageDropdown");
+    const arrow = document.querySelector(".sidebar-header .arrow");
+    const isOpen = dropdown.style.display === "block";
+    dropdown.style.display = isOpen ? "none" : "block";
+    arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+}
+</script>
+</body>
+</html>
