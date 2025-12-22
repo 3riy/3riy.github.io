@@ -25,40 +25,48 @@ body {
     overflow-x: hidden;
 }
 
-/* ================= TOPBAR ================= */
-        .topbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 9999;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 40px;
-            box-sizing: border-box;
-        }
-.menu a {
-    color:white;
-    text-decoration:none;
-    margin:0 6px;
+/* ================= TOPBAR (FIXED SPACING) ================= */
+.topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    box-sizing: border-box;
 }
-.menu a:hover { color:#fc7c7c; }
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    margin: 0; 
+    transition: color 0.2s ease;
+}
+.menu a:hover { color: #fc7c7c; }
 
 /* ================= PAGE TITLE ================= */
 .page-title {
-    margin-top: 65px;
-    text-align:center;
-    font-family:'Silkscreen', monospace;
-    font-size:44px;
-    letter-spacing:2px;
+    margin-top: 85px;
+    text-align: center;
+    font-family: 'Silkscreen', monospace;
+    font-size: 44px;
+    letter-spacing: 2px;
 }
 
 /* ================= LAYOUT ================= */
 .layout {
-    display:flex;
-    padding:40px 60px;
-    gap:40px;
+    display: flex;
+    padding: 40px 60px;
+    gap: 40px;
 }
 
 /* ================= SIDEBAR ================= */
@@ -67,82 +75,82 @@ body {
     top: 260px;
     left: 60px;
     width: 280px;
-    border-right:1px solid #333;
+    border-right: 1px solid #333;
     padding-right: 20px;
 }
 .sidebar h3 {
-    color:#fc7c7c;
-    font-family:'Silkscreen', monospace;
+    color: #fc7c7c;
+    font-family: 'Silkscreen', monospace;
     font-size: 35px;
 }
 .sidebar ul {
     font-size: 22px;
-    list-style:none;
-    padding:0;
+    list-style: none;
+    padding: 0;
 }
 .sidebar li {
-    margin-bottom:12px;
+    margin-bottom: 12px;
 }
 .sidebar a:hover {
-    color:#fc7c7c;
+    color: #fc7c7c;
 }
 .sidebar a {
-    color:#aaa;
-    text-decoration:none;
+    color: #aaa;
+    text-decoration: none;
 }
 .sidebar a.active {
-    color:#fc7c7c;
+    color: #fc7c7c;
     font-weight: bold;
 }
 
 /* ================= CONTENT ================= */
 .content {
     margin-left: 325px;
-    flex:1;
+    flex: 1;
 }
 .section {
-    margin-bottom:80px;
+    margin-bottom: 80px;
     scroll-margin-top: 140px;
 }
 .section h2 {
-    color:#fc7c7c;
-    font-family:'Titillium Web', sans-serif;
+    color: #fc7c7c;
+    font-family: 'Titillium Web', sans-serif;
     font-size: 45px;
 }
 
 /* ================= COMMAND BLOCK ================= */
 .command {
-    margin:20px 0;
+    margin: 20px 0;
 }
 .command h4 {
-    font-family:'Overpass Mono', monospace;
-    color:#f5f5dc;
+    font-family: 'Overpass Mono', monospace;
+    color: #f5f5dc;
     font-size: 22px;
 }
 .command p {
     margin: 4px 0 6px;
-    color:#ccc;
+    color: #ccc;
     font-size: 22px;
 }
 pre {
-    background:#111;
-    padding:12px;
-    border-left:4px solid #fc7c7c;
-    overflow-x:auto;
-    font-family:'Overpass Mono', monospace;
+    background: #111;
+    padding: 12px;
+    border-left: 4px solid #fc7c7c;
+    overflow-x: auto;
+    font-family: 'Overpass Mono', monospace;
     font-size: 20px;
 }
 
 /* ================= EXPAND ================= */
 .toggle-btn {
-    cursor:pointer;
-    color:#fc7c7c;
-    font-family:'Silkscreen', monospace;
+    cursor: pointer;
+    color: #fc7c7c;
+    font-family: 'Silkscreen', monospace;
     font-size: 22px;
 }
 .advanced {
-    display:none;
-    margin-top:10px;
+    display: none;
+    margin-top: 10px;
 }
 
 /* ================= PAGE DROPDOWN ================= */
@@ -166,7 +174,7 @@ pre {
     margin: 10px 0 18px;
     border-radius: 4px;
     max-height: 260px;
-    overflow-y: auto;         /* ENABLE SCROLLING */
+    overflow-y: auto;
     overflow-x: hidden;
     box-shadow: 0 6px 18px rgba(0,0,0,0.45);
 }
@@ -174,7 +182,6 @@ pre {
     display: block;
     padding: 10px 14px;
     font-family: 'Titillium Web', sans-serif;
-    font-size: 16px;
     color: black;
     text-decoration: none;
     font-size: 22px;
@@ -197,7 +204,6 @@ pre {
     z-index: 10000;
 }
 
-/* STATIC CURSOR */
 #static-cursor {
     position: fixed;
     width: 0;
@@ -231,16 +237,15 @@ pre {
     50% { transform: translate(-50%, -50%) scale(1.1); }
 }
 
-/* ================= MOBILE ================= */
 @media (max-width: 900px) {
     .sidebar {
         position: static;
-        width:100%;
-        border-right:none;
-        padding-right:0;
+        width: 100%;
+        border-right: none;
+        padding-right: 0;
     }
     .content {
-        margin-left:0;
+        margin-left: 0;
     }
 }
 </style>
@@ -254,17 +259,17 @@ pre {
 <div class="topbar">
     <div class="header" style="display: flex; align-items: center;">
         <a href="../index.html">
-            <img src="../styles/banner.png" height="80" display: block;>
+            <img src="../styles/banner.png" height="80" style="display: block;">
         </a>
     </div>
     <div class="menu">
         <a href="../index.html#about">About</a><span style="color: red">|</span>
         <a href="../index.html#projects">Projects</a><span style="color: red">|</span>
-        <a href="../index.html#learn" class="menu-link">Learn</a><span style="color: red">|</span>
+        <a href="../index.html#learn">Learn</a><span style="color: red">|</span>
         <a href="../index.html#blog"><span style="color: #fc7c7c">Blog</span></a>
     </div>
     <div class="social-icons">
-        <a href="https://github.com/3riy" target="_blank" class="fab fa-github"></a>
+        <a href="https://github.com/3riy" target="_blank" class="fab fa-github" style="color: white; text-decoration: none;"></a>
     </div>
 </div>
 
@@ -273,7 +278,6 @@ pre {
 <div class="layout">
 
 <aside class="sidebar">
-
 <div class="sidebar-header" onclick="togglePages()">
     <h3>Basic GNU Coreutils</h3>
     <span class="arrow">▼</span>
@@ -301,7 +305,6 @@ pre {
 
 <main class="content">
 
-<!-- ================= FILE OPERATIONS ================= -->
 <section id="file" class="section">
 <h2>File Operations</h2>
 
@@ -378,7 +381,6 @@ ln -s target symlink</code></pre>
 </div>
 </section>
 
-<!-- ================= DIRECTORY OPERATIONS ================= -->
 <section id="dir" class="section">
 <h2>Directory Operations</h2>
 
@@ -424,7 +426,6 @@ ln -s target symlink</code></pre>
 </div>
 </section>
 
-<!-- ================= VIEWING FILES ================= -->
 <section id="view" class="section">
 <h2>Viewing Files</h2>
 
@@ -464,7 +465,6 @@ ln -s target symlink</code></pre>
 </div>
 </section>
 
-<!-- ================= PERMISSIONS ================= -->
 <section id="perm" class="section">
 <h2>Permissions & Ownership</h2>
 
@@ -532,7 +532,6 @@ function toggle(btn) {
     next.style.display = next.style.display === "block" ? "none" : "block";
 }
 
-/* ================= SCROLL SPY ================= */
 const sections = document.querySelectorAll(".section");
 const links = document.querySelectorAll(".sidebar a");
 
@@ -540,9 +539,7 @@ const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             links.forEach(l => l.classList.remove("active"));
-            const active = document.querySelector(
-                `.sidebar a[href="#${entry.target.id}"]`
-            );
+            const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
             if (active) active.classList.add("active");
         }
     });
@@ -553,13 +550,10 @@ sections.forEach(sec => observer.observe(sec));
 function togglePages() {
     const dropdown = document.getElementById("pageDropdown");
     const arrow = document.querySelector(".sidebar-header .arrow");
-
     const isOpen = dropdown.style.display === "block";
     dropdown.style.display = isOpen ? "none" : "block";
     arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
 }
-
 </script>
-
 </body>
 </html>
