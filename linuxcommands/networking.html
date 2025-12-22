@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Networking - Linux Commands Guidebook</title>
+<title>Networking - Linux Commands Guidebook | Riya halbhavi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
@@ -147,7 +147,7 @@ pre {
     </div>
 </div>
 
-<h1 class="page-title">Linux Commands Guidebook</h1>
+<h2 class="page-title">Linux Commands Guidebook</h1>
 
 <div class="layout">
 
@@ -186,32 +186,32 @@ pre {
 <h4>1. ping</h4>
 <p>Sends ICMP ECHO_REQUEST to network hosts to check connectivity.</p>
 <pre><code>ping google.com</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. traceroute</h4>
 <p>Tracks the path that packets take to a network host.</p>
 <pre><code>traceroute google.com</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. mtr</h4>
 <p>Combines ping and traceroute into a single real-time diagnostic tool.</p>
 <pre><code>mtr google.com</code></pre>
-</div>
+</div><br>
 
-<span class="toggle-btn" onclick="toggle(this)">▼ Advanced Connectivity</span>
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
 <div class="advanced">
 <div class="command">
 <h4>4. telnet</h4>
 <p>User interface to the TELNET protocol; often used to check if a specific port is open.</p>
 <pre><code>telnet 192.168.1.1 80</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>5. nc (netcat)</h4>
 <p>The "Swiss-army knife" of networking. Used for reading/writing data across network connections.</p>
 <pre><code>nc -zv 127.0.0.1 22</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>6. nmap</h4>
 <p>Network exploration tool and security / port scanner.</p>
@@ -227,43 +227,43 @@ pre {
 <h4>1. ip addr</h4>
 <p>Displays and manipulates routing, network devices, interfaces and tunnels (Replaces ifconfig).</p>
 <pre><code>ip addr show</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. ip route</h4>
 <p>Show or manipulate the IP routing table.</p>
 <pre><code>ip route show</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. netstat</h4>
 <p>Prints network connections, routing tables, and interface statistics.</p>
 <pre><code>netstat -tuln</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>4. ss</h4>
 <p>Utility to investigate sockets. Faster and more detailed than netstat.</p>
 <pre><code>ss -p</code></pre>
-</div>
+</div><br>
 
-<span class="toggle-btn" onclick="toggle(this)">▼ Advanced Config & Traffic</span>
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
 <div class="advanced">
 <div class="command">
 <h4>5. tcpdump</h4>
 <p>Command-line packet analyzer. Allows you to intercept and display TCP/IP packets.</p>
 <pre><code>sudo tcpdump -i eth0</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>6. nmcli</h4>
 <p>Command-line tool for controlling NetworkManager and reporting network status.</p>
 <pre><code>nmcli device status</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>7. ethtool</h4>
 <p>Display or change ethernet card settings (Speed, Duplex, Wake-on-LAN).</p>
 <pre><code>sudo ethtool eth0</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>8. route</h4>
 <p>Older utility to show/manipulate the IP routing table.</p>
@@ -279,19 +279,19 @@ pre {
 <h4>1. host</h4>
 <p>DNS lookup utility for finding IP addresses of domains and vice-versa.</p>
 <pre><code>host github.com</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. dig</h4>
 <p>DNS lookup utility for interrogating DNS name servers (More detailed than host).</p>
 <pre><code>dig github.com ANY</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. nslookup</h4>
 <p>Querying Internet name servers interactively.</p>
 <pre><code>nslookup google.com</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>4. whois</h4>
@@ -307,33 +307,33 @@ pre {
 <h4>1. curl</h4>
 <p>Transfer data from or to a server (Supports HTTP, FTP, etc.).</p>
 <pre><code>curl -I https://google.com</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>2. wget</h4>
 <p>Non-interactive network downloader.</p>
 <pre><code>wget https://example.com/file.zip</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>3. scp</h4>
 <p>Secure copy (remote file copy program using SSH).</p>
 <pre><code>scp file.txt user@remote:/path/to/</code></pre>
-</div>
+</div><br>
 
 <div class="command">
 <h4>4. rsync</h4>
 <p>Fast, versatile, remote and local file-copying tool (Supports delta sync).</p>
 <pre><code>rsync -avz local_dir/ user@remote:backup/</code></pre>
-</div>
+</div><br>
 
-<span class="toggle-btn" onclick="toggle(this)">▼ Advanced Transfer</span>
+<span class="toggle-btn" onclick="toggle(this)">▼ Advanced</span>
 <div class="advanced">
 <div class="command">
 <h4>5. sftp</h4>
 <p>Interactive file transfer program using SSH.</p>
 <pre><code>sftp user@remote_host</code></pre>
-</div>
+</div><br>
 <div class="command">
 <h4>6. ftp</h4>
 <p>Internet file transfer program (Standard but insecure).</p>
