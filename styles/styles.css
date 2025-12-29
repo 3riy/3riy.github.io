@@ -550,7 +550,7 @@ p {
   text-align: center;
 }
 .small-glitch {
-  font-family: "Silkscreen", sans-serif;
+  font-family: Overpass Mono, monospace;
   font-weight: 700;
   font-style: normal;
   font-size: 38px;
