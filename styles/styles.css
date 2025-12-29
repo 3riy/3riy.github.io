@@ -701,7 +701,7 @@ p {
   padding-left: 20px;
   padding-top: 35px;
   padding-bottom: 35px;
-  object-fit: contain;
+  /* object-fit: contain; */
   margin-right: 15px;
 }
 .center-box p {
