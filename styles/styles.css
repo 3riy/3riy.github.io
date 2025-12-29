@@ -601,17 +601,6 @@ p {
   margin-bottom: 10px;
   text-align: center;
 }
-.glitchhead {
-  font-family: "UnifrakturMaguntia", cursive;
-  font-size: 31px;
-  letter-spacing: 2px;
-  color: white;
-  text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red;
-  position: relative;
-  z-index: 2;
-  margin-top: 13px;
-  margin-bottom: 13px;
-}
 .scanline {
   position: relative;
   display: block;
