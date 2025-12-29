@@ -548,7 +548,7 @@ p {
   text-align: center;
 }
 .small-glitch {
-  font-family: "Candal", sans-serif;
+  font-family: "Overpass Mono", monospace;
   font-weight: 700;
   font-style: bold;
   font-size: 39px;
