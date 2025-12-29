@@ -552,7 +552,7 @@ p {
 .small-glitch {
   font-family: Overpass Mono, monospace;
   font-weight: 700;
-  font-style: normal;
+  font-style: bold;
   font-size: 38px;
   letter-spacing: 2px;
   color: white;
