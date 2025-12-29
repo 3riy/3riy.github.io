@@ -685,7 +685,7 @@ p {
   padding: 30px 40px;
   max-width: 895px;
   max-height: 540px;
-  margin-top: 40px;
+  margin-top: 45px;
   margin-bottom: 20px;
   box-shadow: 0 0 22px red;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -699,6 +699,8 @@ p {
   height: 430px;
   width: auto;
   padding-left: 20px;
+  padding-top: 35px;
+  padding-bottom: 35px;
   object-fit: contain;
   margin-right: 15px;
 }
