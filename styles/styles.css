@@ -196,7 +196,7 @@ body {
         }
 
         .trianglered {
-            filter: drop-shadow(0 0 1px black);
+            filter: drop-shadow(0 0 1px white);
         }
         .triangleblack {
             filter: drop-shadow(0 0 1px white);
