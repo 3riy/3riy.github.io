@@ -7,15 +7,13 @@ body {
     cursor: none; /* hide default cursor */
     overflow-x: hidden; /* prevent horizontal scrollbar from cursor trail */
     margin: 0;
-
     /* Background image */
-    background-image: url('main0.png');
-    background-size: cover;      /* makes the image cover the viewport */
-    background-position: center; /* centers the image */
-    background-repeat: no-repeat;/* prevent tiling */
-    background-attachment: fixed; /* optional: makes background stay while scrolling */
-    
-    /* Optional: fallback color */
+    background-image: url('mainn.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Optional fallback color */
     background-color: black;
 }
 
