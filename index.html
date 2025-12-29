@@ -32,8 +32,7 @@
     <div class="menu">
         <a href="#about" class="menu-link active">About</a><span style="color: red">|</span>
         <a href="#projects" class="menu-link">Projects</a><span style="color: red">|</span>
-        <a href="#learn" class="menu-link">Learn</a><span style="color: red">|</span>
-        <a href="#blog" class="menu-link">Blog</a>
+        <a href="#learn" class="menu-link">Learn</a>
     </div>
       
     <div class="social-icons">
@@ -213,106 +212,14 @@
 
 </div>
 
-    <br><br>
-    
-<!-- BLOG SECTION -->
-<div id="blog"></div>
-<h1 id="typewriter-blog"></h1>
-
-<div class="blog-layout">
-
-    <!-- LEFT SIDEBAR -->
-    <aside class="blog-sidebar">
-        <h3>Tags</h3>
-        <ul class="tag-filters">
-            <li class="clear-filters">Clear Filters</li>
-            <li data-tag="all" class="active">All</li>
-            <li data-tag="programming-languages">Programming Languages</li>
-            <li data-tag="python">Python</li>
-            <li data-tag="c">C</li>
-            <li data-tag="bash">Bash</li>
-            <li data-tag="ai/ml">AI/ML</li>
-            <li data-tag="robotics">Robotics</li>
-            <li data-tag="linux">Linux</li>
-
-        </ul>
-    </aside>
-
-    <!-- ARTICLES -->
-    <div class="article-grid">
-
-        <div class="article-card" data-tags="ai/ml robotics">
-            <a href="https://github.com/rh3nium" target="_blank">
-                <img src="img/track.png" alt="path planning">
-                <h3>Intro to Path Planning Algorithms</h3>
-                <p>An introductory overview of core path planning algorithms used in robotics and autonomous systems, with a focus on popular approaches such as A*, Dijkstra’s algorithm, and RRT (Rapidly-exploring Random Trees), explaining how agents navigate from start to goal while avoiding obstacles and optimizing efficiency.</p>
-            </a>
-            <div class="article-tags">
-                <span>#ai/ml</span>
-                <span>#robotics</span>
-            </div>
-        </div>
-        
-        <div class="article-card" data-tags="programming-languages c">
-            <a href="https://github.com/rh3nium/C" target="_blank">
-                <h3>C Basics — Programs and Examples</h3>
-                <img src="img/C Basics.png" alt="C basics">
-                <p>
-                    C is a powerful, general-purpose programming language that provides a foundation
-                    for many modern languages. Known for its efficiency and control, C is commonly
-                    used in system programming, embedded development, operating systems, and video games.
-                </p>
-            </a>
-            <div class="article-tags">
-                <span>#programming-languages</span>
-                <span>#c</span>
-            </div>
-        </div>
-
-        <div class="article-card" data-tags="programming-languages python">
-            <a href="https://github.com/rh3nium/Python" target="_blank">
-                <h3>Python Basics — Programs and Examples</h3>
-                <img src="img/Python Basics.png" alt="Python basics">
-                <p>
-                    Python is a powerful, versatile, high-level, interpreted, object-oriented programming
-                    language, driving innovation across data science, machine learning/deep learning,
-                    web development, and automation.
-                </p>
-            </a>
-            <div class="article-tags">
-                <span>#programming-languages</span>
-                <span>#python</span>
-            </div>
-        </div>
-
-        <div class="article-card" data-tags="programming-languages bash">
-            <a href="https://github.com/rh3nium/Bash" target="_blank">
-                <h3>Bash Basics — Programs and Automation</h3>
-                <img src="img/Bash Basics.png" alt="Bash basics">
-                <p>
-                    Bash (short for Bourne Again Shell) is a command-line language and scripting shell
-                    used primarily on Unix and Linux systems to automate tasks. It serves both as an
-                    interactive shell and as a scripting language for repetitive or complex operations.
-                </p>
-            </a>
-            <div class="article-tags">
-                <span>#programming-languages</span>
-                <span>#bash</span>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-    <br><br>
-      
+    <br><br>         
 
 <script>
         // --- SCROLL SPY & MENU LOGIC ---
         document.addEventListener("DOMContentLoaded", () => {
             const menuLinks = document.querySelectorAll('.menu-link');
             // Ensure these IDs match your HTML exactly
-            const sections = document.querySelectorAll('#about, #projects, #learn, #blog');
+            const sections = document.querySelectorAll('#about, #projects, #learn');
 
             function changeLinkState() {
                 let current = "";
@@ -425,127 +332,7 @@
         }
         protectImages();
 
-        function spawnTriangles(canvasId, className, color) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return;
-              
-            const canvasSize = 200;
-            const center = canvasSize / 2;
-            const scaleFactor = 1.1;
-
-            for (let i = 0; i < 25; i++) {
-                const tri = document.createElement('div');
-                tri.className = className;
-
-                const base = Math.floor(Math.random() * 32) + 10;
-                const height = Math.floor(Math.random() * 33) + 12;
-
-                tri.style.borderLeft = `${base / 2}px solid transparent`;
-                tri.style.borderRight = `${base / 2}px solid transparent`;
-                tri.style.borderBottom = `${height}px solid ${color}`;
-
-                const maxOffsetX = center - (base / 2) * scaleFactor;
-                const maxOffsetY = center - height * scaleFactor;
-                const offsetX = Math.random() * (maxOffsetX * 2) - maxOffsetX;
-                const offsetY = Math.random() * (maxOffsetY * 2) - maxOffsetY;
-                const rotation = Math.floor(Math.random() * 360);
-
-                tri.style.setProperty('--x', `${offsetX}px`);
-                tri.style.setProperty('--y', `${offsetY}px`);
-                tri.style.setProperty('--r', `${rotation}deg`);
-
-                tri.style.left = '50%';
-                tri.style.top = '50%';
-
-                canvas.appendChild(tri);
-            }
-        }
-
-        spawnTriangles('canvasred2', 'trianglered', 'red');
-        spawnTriangles('canvaswhite', 'trianglewhite', 'white');
-
     </script>
-
-<script>
-// --- Article Tag Filters --- //
-    const filters = document.querySelectorAll(".tag-filters li[data-tag]");
-    const clearBtn = document.querySelector(".clear-filters");
-    const articles = document.querySelectorAll(".article-card");
-
-    // Store original labels
-    filters.forEach(filter => {
-        filter.dataset.label = filter.textContent.trim();
-    });
-
-    // --- GLOBAL STATIC COUNTS ---
-    function setGlobalCounts() {
-        filters.forEach(filter => {
-            const tag = filter.dataset.tag;
-            let count = 0;
-
-            articles.forEach(article => {
-                const articleTags = article.dataset.tags.split(" ");
-                if (tag === "all" || articleTags.includes(tag)) {
-                    count++;
-                }
-            });
-
-            filter.textContent = `${filter.dataset.label} (${count})`;
-        });
-    }
-
-    function getActiveTags() {
-        return Array.from(filters)
-            .filter(f => f.classList.contains("active") && f.dataset.tag !== "all")
-            .map(f => f.dataset.tag);
-    }
-
-    function applyFilters() {
-        const activeTags = getActiveTags();
-
-        articles.forEach(article => {
-            const articleTags = article.dataset.tags.split(" ");
-            const show =
-                activeTags.length === 0 ||
-                activeTags.some(tag => articleTags.includes(tag));
-
-            article.style.display = show ? "block" : "none";
-        });
-    }
-
-    function clearFilters() {
-        filters.forEach(f => f.classList.remove("active"));
-        document.querySelector('[data-tag="all"]').classList.add("active");
-        applyFilters();
-    }
-
-    filters.forEach(filter => {
-        filter.addEventListener("click", () => {
-            const tag = filter.dataset.tag;
-
-            if (tag === "all") {
-                filters.forEach(f => f.classList.remove("active"));
-                filter.classList.add("active");
-            } else {
-                filter.classList.toggle("active");
-
-                const allFilter = document.querySelector('[data-tag="all"]');
-                allFilter.classList.remove("active");
-
-                if (getActiveTags().length === 0) {
-                    allFilter.classList.add("active");
-                }
-            }
-
-            applyFilters();
-        });
-    });
-
-    clearBtn.addEventListener("click", clearFilters);
-
-    // Init
-    setGlobalCounts();
-</script>
 
 </body>
 </html>
