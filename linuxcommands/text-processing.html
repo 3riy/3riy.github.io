@@ -22,6 +22,7 @@ body {
     overflow-x: hidden;
 }
 
+/* ================= TOPBAR (FIXED FLEXBOX SPACING) ================= */
 .topbar {
     position: fixed;
     top: 0;
@@ -34,22 +35,11 @@ body {
     padding: 10px 40px;
     box-sizing: border-box;
 }
-
-.menu {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    margin: 0; 
-    transition: color 0.2s ease;
-}
-
+.menu { display: flex; align-items: center; gap: 8px; }
+.menu a { color: white; text-decoration: none; margin: 0; transition: color 0.2s ease; }
 .menu a:hover { color: #fc7c7c; }
 
+/* ================= PAGE TITLE ================= */
 .page-title {
     margin-top: 85px;
     text-align: center;
@@ -58,12 +48,10 @@ body {
     letter-spacing: 2px;
 }
 
-.layout {
-    display: flex;
-    padding: 40px 60px;
-    gap: 40px;
-}
+/* ================= LAYOUT ================= */
+.layout { display: flex; padding: 40px 60px; gap: 40px; }
 
+/* ================= SIDEBAR ================= */
 .sidebar {
     position: fixed;
     top: 260px;
@@ -72,51 +60,22 @@ body {
     border-right: 1px solid #333;
     padding-right: 20px;
 }
-.sidebar h3 {
-    color: #fc7c7c;
-    font-family: 'Silkscreen', monospace;
-    font-size: 32px;
-}
-.sidebar ul {
-    font-size: 22px;
-    list-style: none;
-    padding: 0;
-}
+.sidebar h3 { color: #fc7c7c; font-family: 'Silkscreen', monospace; font-size: 35px; }
+.sidebar ul { font-size: 22px; list-style: none; padding: 0; }
 .sidebar li { margin-bottom: 12px; }
-.sidebar a {
-    color: #aaa;
-    text-decoration: none;
-}
+.sidebar a { color: #aaa; text-decoration: none; }
 .sidebar a:hover { color: #fc7c7c; }
-.sidebar a.active {
-    color: #fc7c7c;
-    font-weight: bold;
-}
+.sidebar a.active { color: #fc7c7c; font-weight: bold; }
 
-.content {
-    margin-left: 325px;
-    flex: 1;
-}
-.section {
-    margin-bottom: 80px;
-    scroll-margin-top: 140px;
-}
-.section h2 {
-    color: #fc7c7c;
-    font-size: 45px;
-}
+/* ================= CONTENT ================= */
+.content { margin-left: 325px; flex: 1; }
+.section { margin-bottom: 80px; scroll-margin-top: 140px; }
+.section h2 { color: #fc7c7c; font-family: 'Titillium Web', sans-serif; font-size: 45px; }
 
+/* ================= COMMAND BLOCK ================= */
 .command { margin: 20px 0; }
-.command h4 {
-    font-family: 'Overpass Mono', monospace;
-    color: #f5f5dc;
-    font-size: 22px;
-}
-.command p {
-    margin: 4px 0 6px;
-    color: #ccc;
-    font-size: 22px;
-}
+.command h4 { font-family: 'Overpass Mono', monospace; color: #f5f5dc; font-size: 22px; }
+.command p { margin: 4px 0 6px; color: #ccc; font-size: 22px; }
 pre {
     background: #111;
     padding: 12px;
@@ -126,28 +85,13 @@ pre {
     font-size: 20px;
 }
 
-.toggle-btn {
-    cursor: pointer;
-    color: #fc7c7c;
-    font-family: 'Silkscreen', monospace;
-    font-size: 22px;
-}
-.advanced {
-    display: none;
-    margin-top: 10px;
-}
+/* ================= EXPAND ================= */
+.toggle-btn { cursor: pointer; color: #fc7c7c; font-family: 'Silkscreen', monospace; font-size: 22px; margin-top: 10px; display: inline-block;}
+.advanced { display: none; margin-top: 20px; border-top: 1px dashed #444; padding-top: 20px;}
 
-.sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-}
-.sidebar-header .arrow {
-    color: white;
-    font-size: 18px;
-    transition: transform 0.2s ease;
-}
+/* ================= PAGE DROPDOWN ================= */
+.sidebar-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.sidebar-header .arrow { color: white; font-size: 18px; transition: transform 0.2s ease; }
 .page-dropdown {
     display: none;
     background: white;
@@ -157,59 +101,24 @@ pre {
     overflow-y: auto;
     box-shadow: 0 6px 18px rgba(0,0,0,0.45);
 }
-.page-dropdown a {
-    display: block;
-    padding: 10px 14px;
-    font-size: 22px;
-    color: black;
-    text-decoration: none;
-}
+.page-dropdown a { display: block; padding: 10px 14px; font-family: 'Titillium Web', sans-serif; color: black; text-decoration: none; font-size: 22px; }
 .page-dropdown a:hover { background: #e5e5e5; }
-.page-dropdown a.active-page {
-    background: #e5e5e5;
-    font-weight: bold;
-}
+.page-dropdown a.active-page { background: #e5e5e5; font-weight: bold; }
 
-#cursor-trail-container2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 10000;
-}
+/* ================= CURSOR TRAIL ================= */
+#cursor-trail-container2 { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000; }
 #static-cursor {
-    position: fixed;
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 24px solid white;
-    filter: drop-shadow(0 0 4px red);
-    pointer-events: none;
-    z-index: 10001;
-    top: -100px;
-    left: -100px;
-    transform: translate(-50%, -50%);
+    position: fixed; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red); pointer-events: none; z-index: 10001; top: -100px; left: -100px; transform: translate(-50%, -50%);
 }
 .trianglewhite5 {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 24px solid white;
-    filter: drop-shadow(0 0 4px red);
-    animation: pulse5 5s ease-in-out infinite;
-    transition: opacity 0.3s ease;
-    transform: translate(-50%, -50%);
+    position: absolute; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 24px solid white;
+    filter: drop-shadow(0 0 4px red); animation: pulse5 5s ease-in-out infinite; transition: opacity 0.3s ease; transform: translate(-50%, -50%);
 }
-@keyframes pulse5 {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.1); }
-}
+@keyframes pulse5 { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
 
 @media (max-width: 900px) {
-    .sidebar { position: static; width: 100%; border: none; }
+    .sidebar { position: static; width: 100%; border-right: none; padding-right: 0; }
     .content { margin-left: 0; }
 }
 </style>
