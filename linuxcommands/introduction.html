@@ -13,9 +13,7 @@
 <link rel="icon" href="../favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="../styles/styles.css">
 
-<style>
-/* ================= ORIGINAL STYLES ================= */
-html {
+<style>html {
     scroll-behavior: smooth;
     cursor: none;
 }
@@ -27,7 +25,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ================= TOPBAR (FIXED FLEXBOX SPACING) ================= */
 .topbar {
     position: fixed;
     top: 0;
@@ -44,19 +41,18 @@ body {
 .menu {
     display: flex;
     align-items: center;
-    gap: 8px; /* This handles the precise spacing matching your second code */
+    gap: 8px;
 }
 
 .menu a {
     color: white;
     text-decoration: none;
-    margin: 0; /* Removed the 6px margin that was causing wide spacing */
+    margin: 0;
     transition: color 0.2s ease;
 }
 
 .menu a:hover { color: #fc7c7c; }
 
-/* ================= PAGE TITLE ================= */
 .page-title {
     margin-top: 85px;
     text-align: center;
@@ -65,14 +61,12 @@ body {
     letter-spacing: 2px;
 }
 
-/* ================= LAYOUT ================= */
 .layout {
     display: flex;
     padding: 40px 60px;
     gap: 40px;
 }
 
-/* ================= SIDEBAR ================= */
 .sidebar {
     position: fixed;
     top: 260px;
@@ -104,7 +98,6 @@ body {
     font-weight: bold;
 }
 
-/* ================= CONTENT ================= */
 .content {
     margin-left: 325px;
     flex: 1;
@@ -130,7 +123,6 @@ body {
     border-radius: 6px;
 }
 
-/* ================= CURSOR TRAIL ================= */
 #cursor-trail-container2 {
     position: fixed;
     top: 0;
@@ -169,7 +161,6 @@ body {
     50% { transform: translate(-50%, -50%) scale(1.1); }
 }
 
-/* ================= PAGE DROPDOWN ================= */
 .sidebar-header {
     display: flex;
     align-items: center;
@@ -237,6 +228,7 @@ body {
       
     <div class="social-icons">
         <a href="https://github.com/3riy" target="_blank" class="fab fa-github" style="color: white; text-decoration: none;"></a>
+        <a href="https://www.linkedin.com/in/riya-halbhavi-424796390" target="_blank" class="fab fa-linkedin"></a>
     </div>
 </div>
 
